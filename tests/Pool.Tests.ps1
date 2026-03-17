@@ -50,7 +50,7 @@ Describe 'Get-CephPool' {
                     pg_autoscale_mode   = 'on'
                 }
             )
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should return all pools' {
@@ -83,7 +83,7 @@ Describe 'Get-CephPool' {
 
 Describe 'New-CephPool' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
         Mock Get-CephPool {
             [PSCustomObject]@{
                 PSTypeName = 'PSCeph.Pool'
@@ -127,7 +127,7 @@ Describe 'New-CephPool' {
 
 Describe 'Set-CephPool' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
         Mock Get-CephPool {
             [PSCustomObject]@{
                 PSTypeName = 'PSCeph.Pool'
@@ -156,7 +156,7 @@ Describe 'Set-CephPool' {
 
 Describe 'Remove-CephPool' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
     }
 
     It 'Should have mandatory Name parameter' {

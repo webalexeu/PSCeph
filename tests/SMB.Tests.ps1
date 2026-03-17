@@ -58,7 +58,7 @@ Describe 'Get-CephSMBCluster' {
 
 Describe 'New-CephSMBCluster' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
         Mock Get-CephSMBCluster {
             [PSCustomObject]@{
                 PSTypeName = 'PSCeph.SMBCluster'
@@ -98,7 +98,7 @@ Describe 'New-CephSMBCluster' {
 
 Describe 'Remove-CephSMBCluster' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
     }
 
     It 'Should have mandatory ClusterId parameter' {
@@ -130,7 +130,7 @@ Describe 'Get-CephSMBShare' {
                     browsable = $true
                 }
             )
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should have mandatory ClusterId parameter' {
@@ -157,7 +157,7 @@ Describe 'Get-CephSMBShare' {
 
 Describe 'New-CephSMBShare' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
         Mock Get-CephSMBShare {
             [PSCustomObject]@{
                 PSTypeName = 'PSCeph.SMBShare'
@@ -201,7 +201,7 @@ Describe 'New-CephSMBShare' {
 
 Describe 'Set-CephSMBShare' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
         Mock Get-CephSMBShare {
             [PSCustomObject]@{
                 PSTypeName = 'PSCeph.SMBShare'
@@ -235,7 +235,7 @@ Describe 'Set-CephSMBShare' {
 
 Describe 'Remove-CephSMBShare' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
     }
 
     It 'Should have mandatory ClusterId parameter' {
@@ -267,7 +267,7 @@ Describe 'Get-CephSMBUserGroup' {
                 @{ resource_type = 'users'; name = 'user1'; values = @{} }
                 @{ resource_type = 'groups'; name = 'group1'; values = @{} }
             )
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should have mandatory ClusterId parameter' {
@@ -295,7 +295,7 @@ Describe 'Get-CephSMBUserGroup' {
 
 Describe 'Join-CephSMBActiveDirectory' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
         Mock Get-CephSMBCluster {
             [PSCustomObject]@{
                 PSTypeName = 'PSCeph.SMBCluster'

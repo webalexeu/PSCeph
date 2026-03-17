@@ -36,7 +36,7 @@ Describe 'Get-CephNVMeoFGateway' {
                     pool         = 'nvmeof-pool'
                 }
             )
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should return all gateways' {
@@ -71,7 +71,7 @@ Describe 'Get-CephNVMeoFSubsystem' {
                     hosts          = @()
                 }
             )
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should return all subsystems' {
@@ -93,7 +93,7 @@ Describe 'Get-CephNVMeoFSubsystem' {
 
 Describe 'New-CephNVMeoFSubsystem' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
         Mock Get-CephNVMeoFSubsystem {
             [PSCustomObject]@{
                 PSTypeName    = 'PSCeph.NVMeoFSubsystem'
@@ -155,7 +155,7 @@ Describe 'Get-CephNVMeoFNamespace' {
                     block_size     = 512
                 }
             )
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should have mandatory Nqn parameter' {
@@ -176,7 +176,7 @@ Describe 'Get-CephNVMeoFNamespace' {
 
 Describe 'New-CephNVMeoFNamespace' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
         Mock Get-CephNVMeoFNamespace {
             [PSCustomObject]@{
                 PSTypeName  = 'PSCeph.NVMeoFNamespace'
@@ -210,7 +210,7 @@ Describe 'New-CephNVMeoFNamespace' {
 
 Describe 'Remove-CephNVMeoFNamespace' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
     }
 
     It 'Should have mandatory Nqn parameter' {
@@ -237,7 +237,7 @@ Describe 'Get-CephNVMeoFHost' {
                 @{ nqn = 'nqn.2024-01.io.host:initiator1' }
                 @{ nqn = 'nqn.2024-01.io.host:initiator2' }
             )
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should have mandatory Nqn parameter' {
@@ -259,7 +259,7 @@ Describe 'Get-CephNVMeoFHost' {
 
 Describe 'Add-CephNVMeoFHost' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
     }
 
     It 'Should have mandatory Nqn parameter' {
@@ -285,7 +285,7 @@ Describe 'Add-CephNVMeoFHost' {
 
 Describe 'Remove-CephNVMeoFHost' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
     }
 
     It 'Should have mandatory Nqn parameter' {

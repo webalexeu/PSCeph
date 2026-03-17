@@ -46,7 +46,7 @@ Describe 'Get-CephOSD' {
                     @{ osd = 1; uuid = 'def-456'; up = 1; in = 1; host = 'ceph-node2'; device_class = 'ssd' }
                 )
             }
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should return all OSDs' {
@@ -76,7 +76,7 @@ Describe 'Get-CephOSD' {
 
 Describe 'Set-CephOSD' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
         Mock Get-CephOSD {
             [PSCustomObject]@{
                 PSTypeName = 'PSCeph.OSD'
@@ -124,7 +124,7 @@ Describe 'Get-CephOSDTree' {
                     @{ id = 1; name = 'osd.1'; type = 'osd'; status = 'up'; device_class = 'ssd' }
                 )
             }
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should return OSD tree' {
@@ -153,7 +153,7 @@ Describe 'Get-CephMonitor' {
                     quorum_names = @('mon.a', 'mon.b', 'mon.c')
                 }
             }
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should return all monitors' {

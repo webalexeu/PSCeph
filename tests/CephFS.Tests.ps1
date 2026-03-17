@@ -108,7 +108,7 @@ Describe 'Get-CephFSDirectory' {
                     size        = 4096
                 }
             )
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should have mandatory Filesystem parameter' {
@@ -148,7 +148,7 @@ Describe 'Get-CephUser' {
                     key    = 'AQByyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy=='
                 }
             )
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should return all users' {
@@ -191,7 +191,7 @@ Describe 'Get-CephDashboardUser' {
                     @{ username = 'viewer'; name = 'Viewer User'; roles = @('read-only'); enabled = $true }
                 )
             }
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should return all dashboard users' {

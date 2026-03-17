@@ -5,8 +5,6 @@
 param()
 
 BeforeAll {
-    Import-Module 'PSCeph' -Force
-
     # Setup mock session for all tests
     $script:CephSession = [PSCustomObject]@{
         Server               = 'ceph-test.local'
@@ -70,7 +68,7 @@ Describe 'Get-CephHealth' {
                 hosts      = 3
                 pools      = 5
             }
-        }
+        } -ModuleName PSCeph
 
         Get-CephHealth -Full
         Should -Invoke Invoke-CephApi -ParameterFilter { $Endpoint -eq '/api/health/full' }
@@ -106,7 +104,7 @@ Describe 'Get-CephConfig' {
                 @{ name = 'mon_allow_pool_delete'; value = 'false'; source = 'default' }
                 @{ name = 'osd_pool_default_size'; value = '3'; source = 'mon' }
             )
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should return config options' {
@@ -146,7 +144,7 @@ Describe 'Get-CephHost' {
                     @{ hostname = 'ceph-node2'; services = @(); labels = @('mon'); status = 'OK'; addr = '192.168.1.11' }
                 )
             }
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should return all hosts' {
@@ -187,7 +185,7 @@ Describe 'Get-CephHostDevice' {
                     osd_ids             = @()
                 }
             )
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should require Hostname parameter' {
@@ -220,7 +218,7 @@ Describe 'Get-CephHostDaemon' {
                     version     = '18.0.0'
                 }
             )
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should require Hostname parameter' {

@@ -49,7 +49,7 @@ Describe 'Get-CephRBDImage' {
                     )
                 }
             }
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should return all images' {
@@ -90,7 +90,7 @@ Describe 'Get-CephRBDImage' {
 
 Describe 'New-CephRBDImage' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
         Mock Get-CephRBDImage {
             [PSCustomObject]@{
                 PSTypeName = 'PSCeph.RBDImage'
@@ -130,7 +130,7 @@ Describe 'New-CephRBDImage' {
 
 Describe 'Remove-CephRBDImage' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
     }
 
     It 'Should have mandatory PoolName parameter' {
@@ -200,7 +200,7 @@ Describe 'Get-CephRBDSnapshot' {
 
 Describe 'New-CephRBDSnapshot' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
         Mock Get-CephRBDSnapshot {
             [PSCustomObject]@{
                 PSTypeName  = 'PSCeph.RBDSnapshot'
