@@ -5,8 +5,6 @@
 param()
 
 BeforeAll {
-    $ModulePath = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
-    Import-Module "$ModulePath/PSCeph/src/PSCeph.psd1" -Force
 }
 
 Describe 'Connect-Ceph' {
