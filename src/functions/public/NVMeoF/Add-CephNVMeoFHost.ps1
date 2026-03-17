@@ -44,9 +44,9 @@ function Add-CephNVMeoFHost {
             Invoke-CephApi -Endpoint "/api/nvmeof/subsystem/$encodedNqn/host" -Method POST -Body $body
 
             [PSCustomObject]@{
-                PSTypeName    = 'PSCeph.NVMeoFHost'
-                SubsystemNqn  = $Nqn
-                HostNqn       = $HostNqn
+                PSTypeName   = 'PSCeph.NVMeoFHost'
+                SubsystemNqn = $Nqn
+                HostNqn      = $HostNqn
             }
         }
     }
