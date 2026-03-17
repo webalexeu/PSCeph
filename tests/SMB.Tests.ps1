@@ -36,7 +36,7 @@ Describe 'Get-CephSMBCluster' {
                     shares             = @()
                 }
             )
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should return all SMB clusters' {

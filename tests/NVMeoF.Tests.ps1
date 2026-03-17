@@ -122,7 +122,7 @@ Describe 'New-CephNVMeoFSubsystem' {
 
 Describe 'Remove-CephNVMeoFSubsystem' {
     BeforeAll {
-        Mock Invoke-CephApi { }
+        Mock Invoke-CephApi { } -ModuleName PSCeph
     }
 
     It 'Should have mandatory Nqn parameter' {

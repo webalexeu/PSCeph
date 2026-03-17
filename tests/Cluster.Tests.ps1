@@ -82,7 +82,7 @@ Describe 'Get-CephStatus' {
                 fsid   = 'abc-123-def-456'
                 status = 'HEALTH_OK'
             }
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should return cluster status' {
