@@ -5,7 +5,7 @@ function Set-CephSMBShare {
 
     .DESCRIPTION
         Updates properties of an existing SMB share such as
-        read-only status or browseable flag.
+        read-only status or browsable flag.
 
     .PARAMETER ClusterId
         The ID of the SMB cluster containing the share.
@@ -17,7 +17,7 @@ function Set-CephSMBShare {
         Set read-only status.
 
     .PARAMETER Browsable
-        Set browseable status.
+        Set browsable status.
 
     .PARAMETER Path
         Update the CephFS path.
@@ -61,7 +61,7 @@ function Set-CephSMBShare {
         }
 
         if ($PSBoundParameters.ContainsKey('ReadOnly')) { $body['readonly'] = $ReadOnly }
-        if ($PSBoundParameters.ContainsKey('Browsable')) { $body['browseable'] = $Browsable }
+        if ($PSBoundParameters.ContainsKey('Browsable')) { $body['browsable'] = $Browsable }
         if ($Path) { $body['cephfs'] = @{ path = $Path } }
 
         if ($PSCmdlet.ShouldProcess("$ClusterId/$ShareName", 'Modify SMB share')) {

@@ -127,7 +127,7 @@ Describe 'Get-CephSMBShare' {
                     name      = 'data'
                     cephfs    = @{ volume = 'cephfs'; path = '/data'; subvolume = $null }
                     readonly  = $false
-                    browseable = $true
+                    browsable = $true
                 }
             )
         }
