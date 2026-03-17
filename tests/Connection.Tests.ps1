@@ -9,7 +9,9 @@ BeforeAll {
 
 Describe 'Connect-Ceph' {
     BeforeAll {
-        $script:CephSession = $null
+        InModuleScope PSCeph {
+            $script:CephSession = $null
+        }
     }
 
     Context 'Parameter Validation' {
@@ -48,7 +50,7 @@ Describe 'Connect-Ceph' {
                     token       = 'mock-token-abc123'
                     permissions = @{ pool = 'read' }
                 }
-            }
+            } -ModuleName PSCeph
 
             $cred = [PSCredential]::new('admin', (ConvertTo-SecureString 'password' -AsPlainText -Force))
         }
@@ -63,8 +65,11 @@ Describe 'Connect-Ceph' {
         It 'Should set script session variable' {
             $cred = [PSCredential]::new('admin', (ConvertTo-SecureString 'password' -AsPlainText -Force))
             Connect-Ceph -Server 'ceph-test.local' -Credential $cred -SkipCertificateCheck
-            $script:CephSession | Should -Not -BeNullOrEmpty
-            $script:CephSession.Token | Should -Be 'mock-token-abc123'
+            $result = Get-CephConnection
+            $result | Should -Not -BeNullOrEmpty
+            InModuleScope PSCeph {
+                $script:CephSession.Token | Should -Be 'mock-token-abc123'
+            }
         }
     }
 
@@ -72,7 +77,7 @@ Describe 'Connect-Ceph' {
         BeforeAll {
             Mock Invoke-RestMethod {
                 throw 'Connection refused'
-            }
+            } -ModuleName PSCeph
 
             $cred = [PSCredential]::new('admin', (ConvertTo-SecureString 'password' -AsPlainText -Force))
         }
@@ -84,32 +89,32 @@ Describe 'Connect-Ceph' {
 }
 
 Describe 'Disconnect-Ceph' {
+    BeforeAll {
+        Mock Invoke-RestMethod { } -ModuleName PSCeph
+    }
+
     Context 'When connected' {
-        BeforeAll {
-            $script:CephSession = [PSCustomObject]@{
-                Server               = 'ceph-test.local'
-                Port                 = 8443
-                BaseUri              = 'https://ceph-test.local:8443'
-                Token                = 'test-token'
-                Username             = 'admin'
-                SkipCertificateCheck = $true
-            }
-
-            Mock Invoke-RestMethod { }
-        }
-
         It 'Should clear session' {
+            InModuleScope PSCeph {
+                $script:CephSession = [PSCustomObject]@{
+                    Server               = 'ceph-test.local'
+                    Port                 = 8443
+                    BaseUri              = 'https://ceph-test.local:8443'
+                    Token                = 'test-token'
+                    Username             = 'admin'
+                    SkipCertificateCheck = $true
+                }
+            }
             Disconnect-Ceph
-            $script:CephSession | Should -BeNullOrEmpty
+            Get-CephConnection | Should -BeNullOrEmpty
         }
     }
 
     Context 'When not connected' {
-        BeforeAll {
-            $script:CephSession = $null
-        }
-
         It 'Should warn when no active connection' {
+            InModuleScope PSCeph {
+                $script:CephSession = $null
+            }
             Disconnect-Ceph 3>&1 | Should -BeLike '*No active*'
         }
     }
@@ -117,18 +122,17 @@ Describe 'Disconnect-Ceph' {
 
 Describe 'Get-CephConnection' {
     Context 'When connected' {
-        BeforeAll {
-            $script:CephSession = [PSCustomObject]@{
-                Server      = 'ceph-test.local'
-                Port        = 8443
-                Username    = 'admin'
-                ConnectedAt = Get-Date
-                TokenExpiry = (Get-Date).AddHours(1)
-                Permissions = @{ pool = 'read' }
-            }
-        }
-
         It 'Should return connection info' {
+            InModuleScope PSCeph {
+                $script:CephSession = [PSCustomObject]@{
+                    Server      = 'ceph-test.local'
+                    Port        = 8443
+                    Username    = 'admin'
+                    ConnectedAt = Get-Date
+                    TokenExpiry = (Get-Date).AddHours(1)
+                    Permissions = @{ pool = 'read' }
+                }
+            }
             $result = Get-CephConnection
             $result | Should -Not -BeNullOrEmpty
             $result.Server | Should -Be 'ceph-test.local'
@@ -137,17 +141,26 @@ Describe 'Get-CephConnection' {
         }
 
         It 'Should have correct type name' {
+            InModuleScope PSCeph {
+                $script:CephSession = [PSCustomObject]@{
+                    Server      = 'ceph-test.local'
+                    Port        = 8443
+                    Username    = 'admin'
+                    ConnectedAt = Get-Date
+                    TokenExpiry = (Get-Date).AddHours(1)
+                    Permissions = @{ pool = 'read' }
+                }
+            }
             $result = Get-CephConnection
             $result.PSObject.TypeNames | Should -Contain 'PSCeph.ConnectionInfo'
         }
     }
 
     Context 'When not connected' {
-        BeforeAll {
-            $script:CephSession = $null
-        }
-
         It 'Should return null' {
+            InModuleScope PSCeph {
+                $script:CephSession = $null
+            }
             Get-CephConnection | Should -BeNullOrEmpty
         }
     }

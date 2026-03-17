@@ -167,7 +167,7 @@ Describe 'Get-CephRBDSnapshot' {
                     @{ name = 'snap2'; id = 2; size = 10737418240; is_protected = $true }
                 )
             }
-        }
+        } -ModuleName PSCeph
     }
 
     It 'Should have mandatory PoolName parameter' {
