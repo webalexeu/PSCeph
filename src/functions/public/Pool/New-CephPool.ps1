@@ -99,8 +99,8 @@ function New-CephPool {
     }
 
     $body = @{
-        pool      = $Name
-        pool_type = $PoolType
+        pool              = $Name
+        pool_type         = $PoolType
         pg_autoscale_mode = $PgAutoscaleMode
     }
 

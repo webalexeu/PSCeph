@@ -262,7 +262,7 @@ Describe 'Remove-CephSMBShare' {
     }
 }
 
-Describe 'Get-CephSMBUsersGroups' {
+Describe 'Get-CephSMBUserGroup' {
     BeforeAll {
         Mock Invoke-CephApi {
             @(
@@ -273,24 +273,24 @@ Describe 'Get-CephSMBUsersGroups' {
     }
 
     It 'Should have mandatory ClusterId parameter' {
-        $cmd = Get-Command Get-CephSMBUsersGroups
+        $cmd = Get-Command Get-CephSMBUserGroup
         $cmd.Parameters['ClusterId'].Attributes.Mandatory | Should -Be $true
     }
 
     It 'Should return users and groups' {
-        $result = Get-CephSMBUsersGroups -ClusterId 'smb1'
+        $result = Get-CephSMBUserGroup -ClusterId 'smb1'
         $result | Should -Not -BeNullOrEmpty
         $result.Count | Should -Be 2
     }
 
     It 'Should filter by ResourceType' {
-        $result = Get-CephSMBUsersGroups -ClusterId 'smb1' -ResourceType 'users'
+        $result = Get-CephSMBUserGroup -ClusterId 'smb1' -ResourceType 'users'
         $result | Should -Not -BeNullOrEmpty
         $result.ResourceType | Should -Be 'users'
     }
 
     It 'Should have PSTypeName PSCeph.SMBUserGroup' {
-        $result = Get-CephSMBUsersGroups -ClusterId 'smb1'
+        $result = Get-CephSMBUserGroup -ClusterId 'smb1'
         $result[0].PSObject.TypeNames | Should -Contain 'PSCeph.SMBUserGroup'
     }
 }

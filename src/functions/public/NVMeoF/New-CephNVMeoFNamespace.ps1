@@ -86,7 +86,7 @@ function New-CephNVMeoFNamespace {
 
     if ($PSCmdlet.ShouldProcess("$Nqn/$PoolName/$ImageName", 'Create NVMe-oF namespace')) {
         $encodedNqn = [System.Web.HttpUtility]::UrlEncode($Nqn)
-        $response = Invoke-CephApi -Endpoint "/api/nvmeof/subsystem/$encodedNqn/namespace" -Method POST -Body $body
+        $null = Invoke-CephApi -Endpoint "/api/nvmeof/subsystem/$encodedNqn/namespace" -Method POST -Body $body
 
         Get-CephNVMeoFNamespace -Nqn $Nqn | Select-Object -Last 1
     }

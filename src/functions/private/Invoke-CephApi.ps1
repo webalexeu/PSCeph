@@ -139,7 +139,7 @@ function Invoke-CephApi {
                 }
             }
             catch {
-                # Use original error message
+                Write-Debug "Failed to parse error response: $_"
             }
         }
 

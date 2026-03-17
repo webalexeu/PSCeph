@@ -28,8 +28,8 @@ function New-CephSMBShare {
     .PARAMETER ReadOnly
         Make the share read-only.
 
-    .PARAMETER Browseable
-        Make the share visible in network browse lists.
+    .PARAMETER Hidden
+        Hide the share from network browse lists. By default, shares are browseable.
 
     .EXAMPLE
         New-CephSMBShare -ClusterId 'smb1' -ShareName 'data' -Filesystem 'cephfs' -Path '/data'
@@ -69,7 +69,7 @@ function New-CephSMBShare {
         [switch]$ReadOnly,
 
         [Parameter()]
-        [switch]$Browseable = $true
+        [switch]$Hidden
     )
 
     $body = @{
@@ -81,7 +81,7 @@ function New-CephSMBShare {
             path   = $Path
         }
         readonly   = $ReadOnly.IsPresent
-        browseable = $Browseable.IsPresent
+        browseable = -not $Hidden.IsPresent
     }
 
     if ($Subvolume) { $body['cephfs']['subvolume'] = $Subvolume }

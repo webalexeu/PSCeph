@@ -224,7 +224,7 @@ Set-CephSMBShare -ClusterId 'smb01' -ShareId 'share01' -ReadOnly
 Remove-CephSMBShare -ClusterId 'smb01' -ShareId 'share01'
 
 # List users and groups
-Get-CephSMBUsersGroups -ClusterId 'smb01'
+Get-CephSMBUserGroup -ClusterId 'smb01'
 
 # Remove an SMB cluster
 Remove-CephSMBCluster -ClusterId 'smb01'

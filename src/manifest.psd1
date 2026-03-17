@@ -69,7 +69,7 @@
         'New-CephSMBShare'
         'Set-CephSMBShare'
         'Remove-CephSMBShare'
-        'Get-CephSMBUsersGroups'
+        'Get-CephSMBUserGroup'
         'Join-CephSMBActiveDirectory'
     )
     CmdletsToExport   = @()
