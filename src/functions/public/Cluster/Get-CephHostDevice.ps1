@@ -47,18 +47,18 @@ function Get-CephHostDevice {
 
         foreach ($device in $response) {
             [PSCustomObject]@{
-                PSTypeName   = 'PSCeph.HostDevice'
-                Hostname     = $Hostname
-                Path         = $device.path
-                DeviceId     = $device.device_id
-                Type         = $device.human_readable_type
-                Size         = $device.sys_api.size
-                SizeHuman    = $device.human_readable_size
-                Vendor       = $device.sys_api.vendor
-                Model        = $device.sys_api.model
-                Available    = $device.available
-                Rejected     = $device.rejected_reasons
-                OsdIds       = $device.osd_ids
+                PSTypeName = 'PSCeph.HostDevice'
+                Hostname   = $Hostname
+                Path       = $device.path
+                DeviceId   = $device.device_id
+                Type       = $device.human_readable_type
+                Size       = $device.sys_api.size
+                SizeHuman  = $device.human_readable_size
+                Vendor     = $device.sys_api.vendor
+                Model      = $device.sys_api.model
+                Available  = $device.available
+                Rejected   = $device.rejected_reasons
+                OsdIds     = $device.osd_ids
             }
         }
     }
