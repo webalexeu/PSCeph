@@ -121,7 +121,7 @@ Describe 'New-CephPool' {
 
     It 'Should create pool with default settings' {
         $result = New-CephPool -Name 'newpool' -Confirm:$false
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' } -ModuleName PSCeph
     }
 }
 
@@ -150,7 +150,7 @@ Describe 'Set-CephPool' {
 
     It 'Should modify pool with PUT request' {
         Set-CephPool -Name 'rbd' -Size 2 -Confirm:$false
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'PUT' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'PUT' } -ModuleName PSCeph
     }
 }
 
@@ -177,6 +177,6 @@ Describe 'Remove-CephPool' {
 
     It 'Should delete pool with DELETE request' {
         Remove-CephPool -Name 'testpool' -Force
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'DELETE' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'DELETE' } -ModuleName PSCeph
     }
 }

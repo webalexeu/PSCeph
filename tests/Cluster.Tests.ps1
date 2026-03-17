@@ -54,7 +54,7 @@ Describe 'Get-CephHealth' {
 
     It 'Should call minimal endpoint by default' {
         Get-CephHealth
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Endpoint -eq '/api/health/minimal' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Endpoint -eq '/api/health/minimal' } -ModuleName PSCeph
     }
 
     It 'Should call full endpoint with -Full' {
@@ -71,7 +71,7 @@ Describe 'Get-CephHealth' {
         } -ModuleName PSCeph
 
         Get-CephHealth -Full
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Endpoint -eq '/api/health/full' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Endpoint -eq '/api/health/full' } -ModuleName PSCeph
     }
 }
 

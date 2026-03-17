@@ -92,7 +92,7 @@ Describe 'New-CephSMBCluster' {
 
     It 'Should create cluster with POST request' {
         New-CephSMBCluster -ClusterId 'newsmb' -AuthMode 'user' -Confirm:$false
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' } -ModuleName PSCeph
     }
 }
 
@@ -114,7 +114,7 @@ Describe 'Remove-CephSMBCluster' {
 
     It 'Should delete cluster with DELETE request' {
         Remove-CephSMBCluster -ClusterId 'testsmb' -Force
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'DELETE' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'DELETE' } -ModuleName PSCeph
     }
 }
 
@@ -195,7 +195,7 @@ Describe 'New-CephSMBShare' {
 
     It 'Should create share with POST request' {
         New-CephSMBShare -ClusterId 'smb1' -ShareName 'newshare' -Filesystem 'cephfs' -Path '/newshare' -Confirm:$false
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' } -ModuleName PSCeph
     }
 }
 
@@ -229,7 +229,7 @@ Describe 'Set-CephSMBShare' {
 
     It 'Should modify share with PUT request' {
         Set-CephSMBShare -ClusterId 'smb1' -ShareName 'data' -ReadOnly $true -Confirm:$false
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'PUT' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'PUT' } -ModuleName PSCeph
     }
 }
 
@@ -256,7 +256,7 @@ Describe 'Remove-CephSMBShare' {
 
     It 'Should delete share with DELETE request' {
         Remove-CephSMBShare -ClusterId 'smb1' -ShareName 'testshare' -Force
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'DELETE' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'DELETE' } -ModuleName PSCeph
     }
 }
 
@@ -328,6 +328,6 @@ Describe 'Join-CephSMBActiveDirectory' {
     It 'Should join domain with PUT request' {
         $cred = [PSCredential]::new('admin', (ConvertTo-SecureString 'password' -AsPlainText -Force))
         Join-CephSMBActiveDirectory -ClusterId 'smb1' -DomainRealm 'CORP.LOCAL' -Credential $cred -Confirm:$false
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'PUT' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'PUT' } -ModuleName PSCeph
     }
 }

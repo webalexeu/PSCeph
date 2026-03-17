@@ -84,7 +84,7 @@ Describe 'Get-CephRBDImage' {
 
     It 'Should include limit and offset in query' {
         Get-CephRBDImage -PoolName 'rbd' -Limit 50 -Offset 10
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Endpoint -like '*limit=50*' -and $Endpoint -like '*offset=10*' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Endpoint -like '*limit=50*' -and $Endpoint -like '*offset=10*' } -ModuleName PSCeph
     }
 }
 
@@ -124,7 +124,7 @@ Describe 'New-CephRBDImage' {
 
     It 'Should create image with POST request' {
         New-CephRBDImage -PoolName 'rbd' -ImageName 'newimage' -Size 10GB -Confirm:$false
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' } -ModuleName PSCeph
     }
 }
 
@@ -151,7 +151,7 @@ Describe 'Remove-CephRBDImage' {
 
     It 'Should delete image with DELETE request' {
         Remove-CephRBDImage -PoolName 'rbd' -ImageName 'testimage' -Force
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'DELETE' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'DELETE' } -ModuleName PSCeph
     }
 }
 
@@ -235,6 +235,6 @@ Describe 'New-CephRBDSnapshot' {
 
     It 'Should create snapshot with POST request' {
         New-CephRBDSnapshot -PoolName 'rbd' -ImageName 'testimage' -SnapshotName 'newsnap' -Confirm:$false
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' } -ModuleName PSCeph
     }
 }

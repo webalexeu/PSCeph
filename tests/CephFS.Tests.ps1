@@ -129,7 +129,7 @@ Describe 'Get-CephFSDirectory' {
 
     It 'Should default Path to root' {
         Get-CephFSDirectory -Filesystem 'cephfs'
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Endpoint -like '*path=%2F*' -or $Endpoint -like '*path=/*' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Endpoint -like '*path=%2F*' -or $Endpoint -like '*path=/*' } -ModuleName PSCeph
     }
 }
 

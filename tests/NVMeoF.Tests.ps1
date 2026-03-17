@@ -116,7 +116,7 @@ Describe 'New-CephNVMeoFSubsystem' {
 
     It 'Should create subsystem with POST request' {
         New-CephNVMeoFSubsystem -Nqn 'nqn.2024-01.io.ceph:newsub' -Confirm:$false
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' } -ModuleName PSCeph
     }
 }
 
@@ -138,7 +138,7 @@ Describe 'Remove-CephNVMeoFSubsystem' {
 
     It 'Should delete subsystem with DELETE request' {
         Remove-CephNVMeoFSubsystem -Nqn 'nqn.2024-01.io.ceph:testsub' -Force
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'DELETE' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'DELETE' } -ModuleName PSCeph
     }
 }
 
@@ -279,7 +279,7 @@ Describe 'Add-CephNVMeoFHost' {
 
     It 'Should add host with POST request' {
         Add-CephNVMeoFHost -Nqn 'nqn.2024-01.io.ceph:sub1' -HostNqn 'nqn.2024-01.io.host:new' -Confirm:$false
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' } -ModuleName PSCeph
     }
 }
 
@@ -306,6 +306,6 @@ Describe 'Remove-CephNVMeoFHost' {
 
     It 'Should delete host with DELETE request' {
         Remove-CephNVMeoFHost -Nqn 'nqn.2024-01.io.ceph:sub1' -HostNqn 'nqn.2024-01.io.host:old' -Force
-        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'DELETE' }
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'DELETE' } -ModuleName PSCeph
     }
 }
