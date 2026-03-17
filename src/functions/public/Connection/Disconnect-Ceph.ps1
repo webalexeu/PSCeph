@@ -37,7 +37,7 @@ function Disconnect-Ceph {
         if ($script:CephSession.SkipCertificateCheck) {
             $logoutParams['SkipCertificateCheck'] = $true
         }
-        Invoke-RestMethod @logoutParams -ErrorAction SilentlyContinue | Out-Null
+        $null = Invoke-RestMethod @logoutParams -ErrorAction SilentlyContinue
     }
     catch {
         Write-Verbose "Logout API call failed: $_"
