@@ -206,6 +206,11 @@ Describe 'New-CephNVMeoFNamespace' {
         $cmd = Get-Command New-CephNVMeoFNamespace
         $cmd.Parameters['Confirm'] | Should -Not -BeNullOrEmpty
     }
+
+    It 'Should create namespace with POST request' {
+        New-CephNVMeoFNamespace -Nqn 'nqn.2024-01.io.ceph:sub1' -PoolName 'nvmeof-pool' -ImageName 'volume1' -Confirm:$false
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'POST' } -ModuleName PSCeph
+    }
 }
 
 Describe 'Remove-CephNVMeoFNamespace' {
@@ -227,6 +232,11 @@ Describe 'Remove-CephNVMeoFNamespace' {
         $cmd = Get-Command Remove-CephNVMeoFNamespace
         $cmdletBinding = $cmd.ScriptBlock.Attributes | Where-Object { $_ -is [System.Management.Automation.CmdletBindingAttribute] }
         $cmdletBinding.ConfirmImpact | Should -Be 'High'
+    }
+
+    It 'Should delete namespace with DELETE request' {
+        Remove-CephNVMeoFNamespace -Nqn 'nqn.2024-01.io.ceph:sub1' -NamespaceId 1 -Force
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'DELETE' } -ModuleName PSCeph
     }
 }
 

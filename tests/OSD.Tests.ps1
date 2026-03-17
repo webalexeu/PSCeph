@@ -111,6 +111,11 @@ Describe 'Set-CephOSD' {
         $validateRange.MinRange | Should -Be 0.0
         $validateRange.MaxRange | Should -Be 1.0
     }
+
+    It 'Should mark OSD out with PUT request' {
+        Set-CephOSD -OsdId 0 -Out -Confirm:$false
+        Should -Invoke Invoke-CephApi -ParameterFilter { $Method -eq 'PUT' } -ModuleName PSCeph
+    }
 }
 
 Describe 'Get-CephOSDTree' {
