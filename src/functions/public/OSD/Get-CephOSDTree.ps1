@@ -34,10 +34,10 @@ function Get-CephOSDTree {
         return $response
     }
 
-    function ConvertFrom-OSDTreeNode {
+    $convertNode = {
         param($Node, $ParentId = $null, $Depth = 0)
 
-        $output = [PSCustomObject]@{
+        [PSCustomObject]@{
             PSTypeName      = 'PSCeph.OSDTreeNode'
             Id              = $Node.id
             Name            = $Node.name
@@ -52,18 +52,17 @@ function Get-CephOSDTree {
             Reweight        = $Node.reweight
             PrimaryAffinity = $Node.primary_affinity
         }
-        $output
 
         if ($Node.children) {
             foreach ($child in $Node.children) {
-                ConvertFrom-OSDTreeNode -Node $child -ParentId $Node.id -Depth ($Depth + 1)
+                & $convertNode -Node $child -ParentId $Node.id -Depth ($Depth + 1)
             }
         }
     }
 
     if ($response.nodes) {
         foreach ($rootNode in ($response.nodes | Where-Object { $_.type -eq 'root' })) {
-            ConvertFrom-OSDTreeNode -Node $rootNode
+            & $convertNode -Node $rootNode
         }
     }
     elseif ($response) {
