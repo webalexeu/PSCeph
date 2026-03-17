@@ -104,36 +104,36 @@ Accept: application/vnd.ceph.api.v2.0+json   # Block, NVMeoF, SMB, RGW endpoints
 
 | Category | Endpoint | Method | Description |
 |----------|----------|--------|-------------|
-| Auth | `/api/auth` | POST | Authenticate |
-| Auth | `/api/auth/refresh` | POST | Refresh token |
-| Health | `/api/health/minimal` | GET | Basic health |
-| Health | `/api/health/full` | GET | Detailed health |
-| Cluster | `/api/cluster` | GET | Cluster status |
-| Config | `/api/cluster_conf` | GET | Configuration |
-| Hosts | `/api/host` | GET | List hosts |
-| Hosts | `/api/host/{hostname}` | GET | Host details |
-| Hosts | `/api/host/{hostname}/devices` | GET | Host devices |
-| Hosts | `/api/host/{hostname}/daemons` | GET | Host daemons |
-| Pools | `/api/pool` | GET/POST | List/create pools |
-| Pools | `/api/pool/{name}` | GET/PUT/DELETE | Pool operations |
-| OSDs | `/api/osd` | GET | List OSDs |
-| OSDs | `/api/osd/{id}` | GET/PUT | OSD operations |
-| OSDs | `/api/osd/tree` | GET | OSD tree |
-| Monitors | `/api/monitor` | GET | List monitors |
-| RBD | `/api/block/image` | GET | List images (v2.0) |
-| RBD | `/api/block/image/{pool}/{namespace}/{image}` | GET/POST/DELETE | Image operations |
-| CephFS | `/api/cephfs` | GET | List filesystems |
-| CephFS | `/api/cephfs/{name}` | GET | Filesystem details |
-| CephFS | `/api/cephfs/{name}/ls_dir` | GET | List directory |
-| Auth | `/api/auth` | GET | List RADOS users |
-| Users | `/api/user` | GET | List dashboard users |
-| NVMeoF | `/api/nvmeof/gateway` | GET | List gateways (v2.0) |
-| NVMeoF | `/api/nvmeof/subsystem` | GET/POST | Subsystems (v2.0) |
-| NVMeoF | `/api/nvmeof/subsystem/{nqn}/namespace` | GET/POST | Namespaces |
-| NVMeoF | `/api/nvmeof/subsystem/{nqn}/host` | GET/POST | Hosts |
-| SMB | `/api/smb/cluster` | GET/POST | SMB clusters (v2.0) |
-| SMB | `/api/smb/share` | GET/POST | SMB shares |
-| SMB | `/api/smb/usersgroups` | GET | Users/groups |
+|Auth |`/api/auth` |POST |Authenticate |
+|Auth |`/api/auth/refresh` |POST |Refresh token |
+|Health |`/api/health/minimal` |GET |Basic health |
+|Health |`/api/health/full` |GET |Detailed health |
+|Cluster |`/api/cluster` |GET |Cluster status |
+|Config |`/api/cluster_conf` |GET |Configuration |
+|Hosts |`/api/host` |GET |List hosts |
+|Hosts |`/api/host/{hostname}` |GET |Host details |
+|Hosts |`/api/host/{hostname}/devices` |GET |Host devices |
+|Hosts |`/api/host/{hostname}/daemons` |GET |Host daemons |
+|Pools |`/api/pool` |GET/POST |List/create pools |
+|Pools |`/api/pool/{name}` |GET/PUT/DELETE |Pool operations |
+|OSDs |`/api/osd` |GET |List OSDs |
+|OSDs |`/api/osd/{id}` |GET/PUT |OSD operations |
+|OSDs |`/api/osd/tree` |GET |OSD tree |
+|Monitors |`/api/monitor` |GET |List monitors |
+|RBD |`/api/block/image` |GET |List images (v2.0) |
+|RBD |`/api/block/image/{pool}/{namespace}/{image}` |GET/POST/DELETE |Image operations |
+|CephFS |`/api/cephfs` |GET |List filesystems |
+|CephFS |`/api/cephfs/{name}` |GET |Filesystem details |
+|CephFS |`/api/cephfs/{name}/ls_dir` |GET |List directory |
+|Auth |`/api/auth` |GET |List RADOS users |
+|Users |`/api/user` |GET |List dashboard users |
+|NVMeoF |`/api/nvmeof/gateway` |GET |List gateways (v2.0) |
+|NVMeoF |`/api/nvmeof/subsystem` |GET/POST |Subsystems (v2.0) |
+|NVMeoF |`/api/nvmeof/subsystem/{nqn}/namespace` |GET/POST |Namespaces |
+|NVMeoF |`/api/nvmeof/subsystem/{nqn}/host` |GET/POST |Hosts |
+|SMB |`/api/smb/cluster` |GET/POST |SMB clusters (v2.0) |
+|SMB |`/api/smb/share` |GET/POST |SMB shares |
+|SMB |`/api/smb/usersgroups` |GET |Users/groups |
 
 ### Response Handling
 
