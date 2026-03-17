@@ -57,7 +57,7 @@ Describe 'Get-CephFS' {
                     }
                 )
             }
-        } -ModuleName CephPS
+        } -ModuleName PSCeph
     }
 
     It 'Should return all filesystems' {

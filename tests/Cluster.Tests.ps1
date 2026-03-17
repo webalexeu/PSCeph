@@ -35,7 +35,7 @@ Describe 'Get-CephHealth' {
                     mutes  = @()
                 }
             }
-        } -ModuleName CephPS
+        } -ModuleName PSCeph
     }
 
     It 'Should return health status' {
