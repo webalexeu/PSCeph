@@ -52,6 +52,6 @@
     ExcludeRules = @(
         'PSMissingModuleManifestField', # This rule is not applicable until the module is built.
         'PSUseToExportFieldsInManifest',
-        'PSAvoidUsingConvertToSecureStringWithPlainText' # We need to convert the secure string to plain text to send it in the API request. This is only done in one place and is necessary for the functionality.
+        'PSAvoidUsingConvertToSecureStringWithPlainText' # Testing only
     )
 }
