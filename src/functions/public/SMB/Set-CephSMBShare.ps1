@@ -16,7 +16,7 @@ function Set-CephSMBShare {
     .PARAMETER ReadOnly
         Set read-only status.
 
-    .PARAMETER Browseable
+    .PARAMETER Browsable
         Set browseable status.
 
     .PARAMETER Path
@@ -27,7 +27,7 @@ function Set-CephSMBShare {
         Makes the share read-only.
 
     .EXAMPLE
-        Set-CephSMBShare -ClusterId 'smb1' -ShareName 'hidden' -Browseable $false
+        Set-CephSMBShare -ClusterId 'smb1' -ShareName 'hidden' -Browsable $false
         Hides the share from browse lists.
 
     .OUTPUTS
@@ -48,7 +48,7 @@ function Set-CephSMBShare {
         [bool]$ReadOnly,
 
         [Parameter()]
-        [bool]$Browseable,
+        [bool]$Browsable,
 
         [Parameter()]
         [string]$Path
@@ -61,7 +61,7 @@ function Set-CephSMBShare {
         }
 
         if ($PSBoundParameters.ContainsKey('ReadOnly')) { $body['readonly'] = $ReadOnly }
-        if ($PSBoundParameters.ContainsKey('Browseable')) { $body['browseable'] = $Browseable }
+        if ($PSBoundParameters.ContainsKey('Browsable')) { $body['browseable'] = $Browsable }
         if ($Path) { $body['cephfs'] = @{ path = $Path } }
 
         if ($PSCmdlet.ShouldProcess("$ClusterId/$ShareName", 'Modify SMB share')) {

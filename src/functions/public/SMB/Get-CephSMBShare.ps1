@@ -68,7 +68,7 @@ function Get-CephSMBShare {
                 SubvolumeGroup = $share.cephfs.subvolumegroup
                 Provider       = $share.cephfs.provider
                 ReadOnly       = $share.readonly
-                Browseable     = $share.browseable
+                Browsable      = $share.browseable
             }
         }
 
