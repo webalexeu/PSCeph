@@ -68,9 +68,15 @@ function Set-CephOSD {
     process {
         $actions = @()
 
-        if ($In) { $actions += 'in' }
-        if ($Out) { $actions += 'out' }
-        if ($Down) { $actions += 'down' }
+        if ($In) {
+            $actions += 'in'
+        }
+        if ($Out) {
+            $actions += 'out'
+        }
+        if ($Down) {
+            $actions += 'down'
+        }
 
         foreach ($action in $actions) {
             if ($PSCmdlet.ShouldProcess("OSD.$OsdId", "Mark as $action")) {

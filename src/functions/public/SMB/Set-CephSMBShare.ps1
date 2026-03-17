@@ -60,9 +60,15 @@ function Set-CephSMBShare {
             share_id   = $ShareName
         }
 
-        if ($PSBoundParameters.ContainsKey('ReadOnly')) { $body['readonly'] = $ReadOnly }
-        if ($PSBoundParameters.ContainsKey('Browsable')) { $body['browsable'] = $Browsable }
-        if ($Path) { $body['cephfs'] = @{ path = $Path } }
+        if ($PSBoundParameters.ContainsKey('ReadOnly')) {
+            $body['readonly'] = $ReadOnly
+        }
+        if ($PSBoundParameters.ContainsKey('Browsable')) {
+            $body['browsable'] = $Browsable
+        }
+        if ($Path) {
+            $body['cephfs'] = @{ path = $Path }
+        }
 
         if ($PSCmdlet.ShouldProcess("$ClusterId/$ShareName", 'Modify SMB share')) {
             Invoke-CephApi -Endpoint "/api/smb/share/$ClusterId/$ShareName" -Method PUT -Body $body

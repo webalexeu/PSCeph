@@ -106,16 +106,26 @@ function New-CephPool {
 
     if ($PoolType -eq 'replicated') {
         $body['size'] = $Size
-        if ($MinSize) { $body['min_size'] = $MinSize }
+        if ($MinSize) {
+            $body['min_size'] = $MinSize
+        }
     }
     else {
         $body['erasure_code_profile'] = $ErasureCodeProfile
     }
 
-    if ($PgNum) { $body['pg_num'] = $PgNum }
-    if ($CrushRule) { $body['rule_name'] = $CrushRule }
-    if ($Application) { $body['application'] = @{ $Application = @{} } }
-    if ($Compression) { $body['compression_mode'] = $Compression }
+    if ($PgNum) {
+        $body['pg_num'] = $PgNum
+    }
+    if ($CrushRule) {
+        $body['rule_name'] = $CrushRule
+    }
+    if ($Application) {
+        $body['application'] = @{ $Application = @{} }
+    }
+    if ($Compression) {
+        $body['compression_mode'] = $Compression
+    }
 
     if ($PSCmdlet.ShouldProcess($Name, 'Create Ceph pool')) {
         Invoke-CephApi -Endpoint '/api/pool' -Method POST -Body $body

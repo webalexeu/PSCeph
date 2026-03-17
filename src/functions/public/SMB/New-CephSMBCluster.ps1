@@ -92,8 +92,12 @@ function New-CephSMBCluster {
         }
     }
 
-    if ($Placement) { $body['placement'] = $Placement }
-    if ($Clustering) { $body['clustering'] = 'default' }
+    if ($Placement) {
+        $body['placement'] = $Placement
+    }
+    if ($Clustering) {
+        $body['clustering'] = 'default'
+    }
 
     if ($PSCmdlet.ShouldProcess($ClusterId, 'Create SMB cluster')) {
         Invoke-CephApi -Endpoint '/api/smb/cluster' -Method POST -Body $body

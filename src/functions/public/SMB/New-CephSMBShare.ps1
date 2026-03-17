@@ -81,11 +81,15 @@ function New-CephSMBShare {
             path   = $Path
         }
         readonly   = $ReadOnly.IsPresent
-        browsable = -not $Hidden.IsPresent
+        browsable  = -not $Hidden.IsPresent
     }
 
-    if ($Subvolume) { $body['cephfs']['subvolume'] = $Subvolume }
-    if ($SubvolumeGroup) { $body['cephfs']['subvolumegroup'] = $SubvolumeGroup }
+    if ($Subvolume) {
+        $body['cephfs']['subvolume'] = $Subvolume
+    }
+    if ($SubvolumeGroup) {
+        $body['cephfs']['subvolumegroup'] = $SubvolumeGroup
+    }
 
     if ($PSCmdlet.ShouldProcess("$ClusterId/$ShareName", 'Create SMB share')) {
         Invoke-CephApi -Endpoint '/api/smb/share' -Method POST -Body $body

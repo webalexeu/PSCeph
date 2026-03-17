@@ -84,13 +84,27 @@ function Set-CephPool {
     process {
         $body = @{}
 
-        if ($PSBoundParameters.ContainsKey('Size')) { $body['size'] = $Size }
-        if ($PSBoundParameters.ContainsKey('MinSize')) { $body['min_size'] = $MinSize }
-        if ($PSBoundParameters.ContainsKey('PgNum')) { $body['pg_num'] = $PgNum }
-        if ($PSBoundParameters.ContainsKey('PgAutoscaleMode')) { $body['pg_autoscale_mode'] = $PgAutoscaleMode }
-        if ($PSBoundParameters.ContainsKey('Compression')) { $body['compression_mode'] = $Compression }
-        if ($PSBoundParameters.ContainsKey('QuotaMaxBytes')) { $body['quota_max_bytes'] = $QuotaMaxBytes }
-        if ($PSBoundParameters.ContainsKey('QuotaMaxObjects')) { $body['quota_max_objects'] = $QuotaMaxObjects }
+        if ($PSBoundParameters.ContainsKey('Size')) {
+            $body['size'] = $Size
+        }
+        if ($PSBoundParameters.ContainsKey('MinSize')) {
+            $body['min_size'] = $MinSize
+        }
+        if ($PSBoundParameters.ContainsKey('PgNum')) {
+            $body['pg_num'] = $PgNum
+        }
+        if ($PSBoundParameters.ContainsKey('PgAutoscaleMode')) {
+            $body['pg_autoscale_mode'] = $PgAutoscaleMode
+        }
+        if ($PSBoundParameters.ContainsKey('Compression')) {
+            $body['compression_mode'] = $Compression
+        }
+        if ($PSBoundParameters.ContainsKey('QuotaMaxBytes')) {
+            $body['quota_max_bytes'] = $QuotaMaxBytes
+        }
+        if ($PSBoundParameters.ContainsKey('QuotaMaxObjects')) {
+            $body['quota_max_objects'] = $QuotaMaxObjects
+        }
 
         if ($body.Count -eq 0) {
             Write-Warning 'No modifications specified.'

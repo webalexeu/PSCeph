@@ -60,8 +60,12 @@ function New-CephNVMeoFSubsystem {
         allow_any_host = $AllowAnyHost.IsPresent
     }
 
-    if ($SerialNumber) { $body['serial_number'] = $SerialNumber }
-    if ($Model) { $body['model_number'] = $Model }
+    if ($SerialNumber) {
+        $body['serial_number'] = $SerialNumber
+    }
+    if ($Model) {
+        $body['model_number'] = $Model
+    }
 
     if ($PSCmdlet.ShouldProcess($Nqn, 'Create NVMe-oF subsystem')) {
         Invoke-CephApi -Endpoint '/api/nvmeof/subsystem' -Method POST -Body $body

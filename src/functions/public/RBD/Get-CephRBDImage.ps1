@@ -110,7 +110,9 @@ function Get-CephRBDImage {
         }
         else {
             $queryParams = @()
-            if ($PoolName) { $queryParams += "pool_name=$PoolName" }
+            if ($PoolName) {
+                $queryParams += "pool_name=$PoolName"
+            }
             $queryParams += "limit=$Limit"
             $queryParams += "offset=$Offset"
 

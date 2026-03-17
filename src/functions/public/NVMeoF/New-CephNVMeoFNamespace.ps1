@@ -78,7 +78,9 @@ function New-CephNVMeoFNamespace {
         block_size     = $BlockSize
     }
 
-    if ($RbdNamespace) { $body['rbd_namespace'] = $RbdNamespace }
+    if ($RbdNamespace) {
+        $body['rbd_namespace'] = $RbdNamespace
+    }
     if ($CreateImage) {
         $body['create_image'] = $true
         $body['size'] = $Size

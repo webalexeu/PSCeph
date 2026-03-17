@@ -87,11 +87,21 @@ function New-CephRBDImage {
         obj_size  = $ObjectSize
     }
 
-    if ($Namespace) { $body['namespace'] = $Namespace }
-    if ($Features) { $body['features'] = $Features }
-    if ($DataPool) { $body['data_pool'] = $DataPool }
-    if ($StripeUnit) { $body['stripe_unit'] = $StripeUnit }
-    if ($StripeCount) { $body['stripe_count'] = $StripeCount }
+    if ($Namespace) {
+        $body['namespace'] = $Namespace
+    }
+    if ($Features) {
+        $body['features'] = $Features
+    }
+    if ($DataPool) {
+        $body['data_pool'] = $DataPool
+    }
+    if ($StripeUnit) {
+        $body['stripe_unit'] = $StripeUnit
+    }
+    if ($StripeCount) {
+        $body['stripe_count'] = $StripeCount
+    }
 
     if ($PSCmdlet.ShouldProcess("$PoolName/$ImageName", 'Create RBD image')) {
         Invoke-CephApi -Endpoint '/api/block/image' -Method POST -Body $body
