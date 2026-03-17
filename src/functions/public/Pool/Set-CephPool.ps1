@@ -1,7 +1,7 @@
 function Set-CephPool {
     <#
     .SYNOPSIS
-        Modifies a Ceph storage pool.
+        Modifies a Ceph storage pool
 
     .DESCRIPTION
         Updates properties of an existing Ceph pool such as size,

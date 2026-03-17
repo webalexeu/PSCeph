@@ -1,7 +1,7 @@
 function Get-CephNVMeoFHost {
     <#
     .SYNOPSIS
-        Gets hosts allowed to access an NVMe-oF subsystem.
+        Gets hosts allowed to access an NVMe-oF subsystem
 
     .DESCRIPTION
         Retrieves the list of host NQNs that are allowed to connect

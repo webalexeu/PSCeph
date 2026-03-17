@@ -1,7 +1,7 @@
 function Get-CephHostDaemon {
     <#
     .SYNOPSIS
-        Gets daemons running on a Ceph cluster host.
+        Gets daemons running on a Ceph cluster host
 
     .DESCRIPTION
         Retrieves information about Ceph daemons running on a specific host,

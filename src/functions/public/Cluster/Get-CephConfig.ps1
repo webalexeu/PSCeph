@@ -1,7 +1,7 @@
 function Get-CephConfig {
     <#
     .SYNOPSIS
-        Gets the Ceph cluster configuration.
+        Gets the Ceph cluster configuration
 
     .DESCRIPTION
         Retrieves configuration options from the Ceph cluster. Can filter

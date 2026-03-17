@@ -1,7 +1,7 @@
 function Remove-CephSMBShare {
     <#
     .SYNOPSIS
-        Removes a Ceph SMB share.
+        Removes a Ceph SMB share
 
     .DESCRIPTION
         Deletes an SMB share from a Ceph SMB cluster.

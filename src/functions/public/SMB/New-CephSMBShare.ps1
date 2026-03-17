@@ -1,7 +1,7 @@
 function New-CephSMBShare {
     <#
     .SYNOPSIS
-        Creates a new Ceph SMB share.
+        Creates a new Ceph SMB share
 
     .DESCRIPTION
         Creates a new SMB share in a Ceph SMB cluster pointing to

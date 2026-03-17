@@ -1,7 +1,7 @@
 function Get-CephHost {
     <#
     .SYNOPSIS
-        Gets information about hosts in the Ceph cluster.
+        Gets information about hosts in the Ceph cluster
 
     .DESCRIPTION
         Retrieves information about all hosts or a specific host in the

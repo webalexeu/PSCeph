@@ -1,7 +1,7 @@
 function Get-CephSMBCluster {
     <#
     .SYNOPSIS
-        Gets Ceph SMB clusters.
+        Gets Ceph SMB clusters
 
     .DESCRIPTION
         Retrieves information about SMB clusters in Ceph, including

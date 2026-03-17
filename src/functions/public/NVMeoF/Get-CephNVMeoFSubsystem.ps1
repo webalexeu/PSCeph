@@ -1,7 +1,7 @@
 function Get-CephNVMeoFSubsystem {
     <#
     .SYNOPSIS
-        Gets NVMe-oF subsystems.
+        Gets NVMe-oF subsystems
 
     .DESCRIPTION
         Retrieves information about NVMe over Fabrics subsystems,

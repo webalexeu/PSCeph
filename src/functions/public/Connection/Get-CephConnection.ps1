@@ -1,7 +1,7 @@
 function Get-CephConnection {
     <#
     .SYNOPSIS
-        Gets information about the current Ceph Dashboard connection.
+        Gets information about the current Ceph Dashboard connection
 
     .DESCRIPTION
         Returns details about the current Ceph Dashboard session including

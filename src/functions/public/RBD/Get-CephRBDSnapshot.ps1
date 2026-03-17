@@ -1,7 +1,7 @@
 function Get-CephRBDSnapshot {
     <#
     .SYNOPSIS
-        Gets RBD image snapshots.
+        Gets RBD image snapshots
 
     .DESCRIPTION
         Retrieves snapshot information for a specific RBD image,

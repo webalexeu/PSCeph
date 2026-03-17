@@ -1,7 +1,7 @@
 function Get-CephMonitor {
     <#
     .SYNOPSIS
-        Gets Ceph Monitor daemon information.
+        Gets Ceph Monitor daemon information
 
     .DESCRIPTION
         Retrieves information about all monitors or a specific monitor

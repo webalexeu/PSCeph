@@ -1,7 +1,7 @@
 function Remove-CephNVMeoFHost {
     <#
     .SYNOPSIS
-        Removes a host from an NVMe-oF subsystem.
+        Removes a host from an NVMe-oF subsystem
 
     .DESCRIPTION
         Revokes access to an NVMe-oF subsystem for a specific host.

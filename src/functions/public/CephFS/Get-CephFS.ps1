@@ -1,7 +1,7 @@
 function Get-CephFS {
     <#
     .SYNOPSIS
-        Gets CephFS filesystem information.
+        Gets CephFS filesystem information
 
     .DESCRIPTION
         Retrieves information about CephFS filesystems in the cluster,

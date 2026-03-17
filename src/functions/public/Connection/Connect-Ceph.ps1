@@ -1,7 +1,7 @@
 function Connect-Ceph {
     <#
     .SYNOPSIS
-        Establishes a connection to a Ceph Dashboard API.
+        Establishes a connection to a Ceph Dashboard API
 
     .DESCRIPTION
         Authenticates to the Ceph Dashboard REST API and stores the session token

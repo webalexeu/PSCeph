@@ -1,7 +1,7 @@
 function Remove-CephRBDImage {
     <#
     .SYNOPSIS
-        Removes an RBD image.
+        Removes an RBD image
 
     .DESCRIPTION
         Deletes an RBD image from the pool. The image must not have

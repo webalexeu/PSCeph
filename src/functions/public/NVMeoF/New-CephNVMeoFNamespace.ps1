@@ -1,7 +1,7 @@
 function New-CephNVMeoFNamespace {
     <#
     .SYNOPSIS
-        Creates a new NVMe-oF namespace.
+        Creates a new NVMe-oF namespace
 
     .DESCRIPTION
         Creates a new namespace in an NVMe-oF subsystem backed by

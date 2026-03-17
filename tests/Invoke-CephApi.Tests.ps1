@@ -22,10 +22,11 @@ Describe 'Invoke-CephApi' {
             InModuleScope PSCeph {
                 $cmd = Get-Command Invoke-CephApi
                 $cmd.Parameters['Endpoint'].Attributes.Mandatory | Should -Be $true
-                $cmd.Parameters['Method'].Attributes.ValidateSet.ValidValues | Should -Contain 'GET'
-                $cmd.Parameters['Method'].Attributes.ValidateSet.ValidValues | Should -Contain 'POST'
-                $cmd.Parameters['Method'].Attributes.ValidateSet.ValidValues | Should -Contain 'PUT'
-                $cmd.Parameters['Method'].Attributes.ValidateSet.ValidValues | Should -Contain 'DELETE'
+                $validateSet = $cmd.Parameters['Method'].Attributes | Where-Object { $_ -is [System.Management.Automation.ValidateSetAttribute] }
+                $validateSet.ValidValues | Should -Contain 'GET'
+                $validateSet.ValidValues | Should -Contain 'POST'
+                $validateSet.ValidValues | Should -Contain 'PUT'
+                $validateSet.ValidValues | Should -Contain 'DELETE'
             }
         }
 

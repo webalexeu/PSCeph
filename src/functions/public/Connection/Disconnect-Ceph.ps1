@@ -1,7 +1,7 @@
 function Disconnect-Ceph {
     <#
     .SYNOPSIS
-        Disconnects from the current Ceph Dashboard session.
+        Disconnects from the current Ceph Dashboard session
 
     .DESCRIPTION
         Clears the stored Ceph session token and connection information.

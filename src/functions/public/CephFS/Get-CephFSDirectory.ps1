@@ -1,7 +1,7 @@
 function Get-CephFSDirectory {
     <#
     .SYNOPSIS
-        Gets directories in a CephFS filesystem.
+        Gets directories in a CephFS filesystem
 
     .DESCRIPTION
         Retrieves directory information from a CephFS filesystem,

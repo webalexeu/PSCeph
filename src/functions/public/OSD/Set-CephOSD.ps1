@@ -1,7 +1,7 @@
 function Set-CephOSD {
     <#
     .SYNOPSIS
-        Modifies an OSD state.
+        Modifies an OSD state
 
     .DESCRIPTION
         Changes the state of an OSD, such as marking it in/out or

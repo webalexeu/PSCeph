@@ -1,7 +1,7 @@
 function New-CephRBDImage {
     <#
     .SYNOPSIS
-        Creates a new RBD image.
+        Creates a new RBD image
 
     .DESCRIPTION
         Creates a new RADOS Block Device image in the specified pool

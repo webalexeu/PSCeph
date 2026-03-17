@@ -1,7 +1,7 @@
 function New-CephRBDSnapshot {
     <#
     .SYNOPSIS
-        Creates a new RBD image snapshot.
+        Creates a new RBD image snapshot
 
     .DESCRIPTION
         Creates a point-in-time snapshot of an RBD image.

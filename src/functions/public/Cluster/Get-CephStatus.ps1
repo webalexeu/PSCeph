@@ -1,7 +1,7 @@
 function Get-CephStatus {
     <#
     .SYNOPSIS
-        Gets the overall status of the Ceph cluster.
+        Gets the overall status of the Ceph cluster
 
     .DESCRIPTION
         Retrieves comprehensive cluster status including FSID, health,

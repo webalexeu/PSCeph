@@ -1,7 +1,7 @@
 function New-CephPool {
     <#
     .SYNOPSIS
-        Creates a new Ceph storage pool.
+        Creates a new Ceph storage pool
 
     .DESCRIPTION
         Creates a new replicated or erasure-coded pool in the Ceph cluster

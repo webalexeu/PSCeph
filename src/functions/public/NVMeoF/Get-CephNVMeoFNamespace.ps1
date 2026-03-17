@@ -1,7 +1,7 @@
 function Get-CephNVMeoFNamespace {
     <#
     .SYNOPSIS
-        Gets NVMe-oF namespaces.
+        Gets NVMe-oF namespaces
 
     .DESCRIPTION
         Retrieves namespace information for an NVMe-oF subsystem,

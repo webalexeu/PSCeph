@@ -1,7 +1,7 @@
 function New-CephNVMeoFSubsystem {
     <#
     .SYNOPSIS
-        Creates a new NVMe-oF subsystem.
+        Creates a new NVMe-oF subsystem
 
     .DESCRIPTION
         Creates a new NVMe over Fabrics subsystem with the specified

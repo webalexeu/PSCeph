@@ -1,7 +1,7 @@
 function Get-CephOSDTree {
     <#
     .SYNOPSIS
-        Gets the Ceph OSD tree (CRUSH map hierarchy).
+        Gets the Ceph OSD tree (CRUSH map hierarchy)
 
     .DESCRIPTION
         Retrieves the hierarchical view of OSDs organized by CRUSH map

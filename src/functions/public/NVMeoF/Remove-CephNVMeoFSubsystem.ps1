@@ -1,7 +1,7 @@
 function Remove-CephNVMeoFSubsystem {
     <#
     .SYNOPSIS
-        Removes an NVMe-oF subsystem.
+        Removes an NVMe-oF subsystem
 
     .DESCRIPTION
         Deletes an NVMe over Fabrics subsystem and all associated

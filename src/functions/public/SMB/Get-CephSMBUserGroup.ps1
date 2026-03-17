@@ -1,7 +1,7 @@
 function Get-CephSMBUserGroup {
     <#
     .SYNOPSIS
-        Gets SMB users and groups.
+        Gets SMB users and groups
 
     .DESCRIPTION
         Retrieves local SMB users and groups configuration for

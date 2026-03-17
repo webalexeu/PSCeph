@@ -1,7 +1,7 @@
 function Join-CephSMBActiveDirectory {
     <#
     .SYNOPSIS
-        Joins an SMB cluster to Active Directory.
+        Joins an SMB cluster to Active Directory
 
     .DESCRIPTION
         Joins or re-joins a Ceph SMB cluster to an Active Directory

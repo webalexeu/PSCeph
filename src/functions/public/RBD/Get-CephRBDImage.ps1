@@ -1,7 +1,7 @@
 function Get-CephRBDImage {
     <#
     .SYNOPSIS
-        Gets RBD (RADOS Block Device) images.
+        Gets RBD (RADOS Block Device) images
 
     .DESCRIPTION
         Retrieves information about RBD images in a pool, including

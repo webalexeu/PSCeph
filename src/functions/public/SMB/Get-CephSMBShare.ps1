@@ -1,7 +1,7 @@
 function Get-CephSMBShare {
     <#
     .SYNOPSIS
-        Gets Ceph SMB shares.
+        Gets Ceph SMB shares
 
     .DESCRIPTION
         Retrieves information about SMB shares in a Ceph SMB cluster,

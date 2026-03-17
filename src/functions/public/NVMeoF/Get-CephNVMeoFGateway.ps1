@@ -1,7 +1,7 @@
 function Get-CephNVMeoFGateway {
     <#
     .SYNOPSIS
-        Gets NVMe-oF gateways.
+        Gets NVMe-oF gateways
 
     .DESCRIPTION
         Retrieves information about NVMe over Fabrics gateways in the

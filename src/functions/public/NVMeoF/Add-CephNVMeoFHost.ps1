@@ -1,7 +1,7 @@
 function Add-CephNVMeoFHost {
     <#
     .SYNOPSIS
-        Adds a host to an NVMe-oF subsystem.
+        Adds a host to an NVMe-oF subsystem
 
     .DESCRIPTION
         Grants access to an NVMe-oF subsystem for a specific host

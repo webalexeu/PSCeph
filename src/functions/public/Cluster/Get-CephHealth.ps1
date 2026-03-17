@@ -1,7 +1,7 @@
 function Get-CephHealth {
     <#
     .SYNOPSIS
-        Gets the health status of the Ceph cluster.
+        Gets the health status of the Ceph cluster
 
     .DESCRIPTION
         Retrieves the current health status of the Ceph cluster including

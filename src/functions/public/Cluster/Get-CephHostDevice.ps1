@@ -1,7 +1,7 @@
 function Get-CephHostDevice {
     <#
     .SYNOPSIS
-        Gets devices on a Ceph cluster host.
+        Gets devices on a Ceph cluster host
 
     .DESCRIPTION
         Retrieves information about storage devices on a specific host,

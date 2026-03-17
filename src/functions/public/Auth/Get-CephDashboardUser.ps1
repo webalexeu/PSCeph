@@ -1,7 +1,7 @@
 function Get-CephDashboardUser {
     <#
     .SYNOPSIS
-        Gets Ceph Dashboard users.
+        Gets Ceph Dashboard users
 
     .DESCRIPTION
         Retrieves information about Ceph Dashboard web interface users,

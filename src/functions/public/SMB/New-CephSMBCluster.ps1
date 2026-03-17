@@ -1,7 +1,7 @@
 function New-CephSMBCluster {
     <#
     .SYNOPSIS
-        Creates a new Ceph SMB cluster.
+        Creates a new Ceph SMB cluster
 
     .DESCRIPTION
         Creates a new SMB cluster for serving CephFS shares via SMB/CIFS

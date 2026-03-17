@@ -1,7 +1,7 @@
 function Remove-CephNVMeoFNamespace {
     <#
     .SYNOPSIS
-        Removes an NVMe-oF namespace.
+        Removes an NVMe-oF namespace
 
     .DESCRIPTION
         Deletes a namespace from an NVMe-oF subsystem. The underlying

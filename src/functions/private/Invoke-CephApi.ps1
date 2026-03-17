@@ -1,7 +1,7 @@
 function Invoke-CephApi {
     <#
     .SYNOPSIS
-        Internal function to invoke Ceph Dashboard REST API endpoints.
+        Internal function to invoke Ceph Dashboard REST API endpoints
 
     .DESCRIPTION
         Handles all REST API calls to the Ceph Dashboard with automatic token management,

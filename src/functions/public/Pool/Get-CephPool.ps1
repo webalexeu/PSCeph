@@ -1,7 +1,7 @@
 function Get-CephPool {
     <#
     .SYNOPSIS
-        Gets Ceph storage pools.
+        Gets Ceph storage pools
 
     .DESCRIPTION
         Retrieves information about all pools or a specific pool in the

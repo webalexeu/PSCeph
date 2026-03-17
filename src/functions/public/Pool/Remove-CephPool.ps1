@@ -1,7 +1,7 @@
 function Remove-CephPool {
     <#
     .SYNOPSIS
-        Removes a Ceph storage pool.
+        Removes a Ceph storage pool
 
     .DESCRIPTION
         Deletes a storage pool from the Ceph cluster. This operation is

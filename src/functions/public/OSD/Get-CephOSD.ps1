@@ -1,7 +1,7 @@
 function Get-CephOSD {
     <#
     .SYNOPSIS
-        Gets Ceph OSD (Object Storage Daemon) information.
+        Gets Ceph OSD (Object Storage Daemon) information
 
     .DESCRIPTION
         Retrieves information about all OSDs or a specific OSD in the

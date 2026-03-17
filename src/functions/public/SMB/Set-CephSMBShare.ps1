@@ -1,7 +1,7 @@
 function Set-CephSMBShare {
     <#
     .SYNOPSIS
-        Modifies a Ceph SMB share.
+        Modifies a Ceph SMB share
 
     .DESCRIPTION
         Updates properties of an existing SMB share such as

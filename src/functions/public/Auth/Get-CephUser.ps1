@@ -1,7 +1,7 @@
 function Get-CephUser {
     <#
     .SYNOPSIS
-        Gets Ceph RADOS users (auth entities).
+        Gets Ceph RADOS users (auth entities)
 
     .DESCRIPTION
         Retrieves information about Ceph authentication entities (users),
