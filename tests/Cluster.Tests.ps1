@@ -5,6 +5,9 @@
 param()
 
 BeforeAll {
+    $ModulePath = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+    Import-Module "$ModulePath/outputs/module/PSCeph/PSCeph.psd1" -Force
+
     # Setup mock session for all tests
     $script:CephSession = [PSCustomObject]@{
         Server               = 'ceph-test.local'
