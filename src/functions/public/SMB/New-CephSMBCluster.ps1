@@ -80,10 +80,12 @@ function New-CephSMBCluster {
             realm = $DomainRealm
         }
         if ($DomainJoinUser) {
-            $body['domain_settings']['join_sources'] = @(@{
-                source_type = 'password'
-                username    = $DomainJoinUser
-            })
+            $body['domain_settings']['join_sources'] = @(
+                @{
+                    source_type = 'password'
+                    username    = $DomainJoinUser
+                }
+            )
             if ($DomainJoinPassword) {
                 $ptr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($DomainJoinPassword)
                 $body['domain_settings']['join_sources'][0]['password'] = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($ptr)

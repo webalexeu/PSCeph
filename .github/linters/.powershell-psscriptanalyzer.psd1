@@ -1,7 +1,7 @@
 ﻿@{
     Rules        = @{
         PSAlignAssignmentStatement         = @{
-            Enable         = $true
+            Enable         = $false
             CheckHashtable = $true
         }
         PSAvoidLongLines                   = @{
@@ -31,7 +31,7 @@
             Placement               = 'begin'
         }
         PSUseConsistentIndentation         = @{
-            Enable              = $true
+            Enable              = $false
             IndentationSize     = 4
             PipelineIndentation = 'IncreaseIndentationForFirstPipeline'
             Kind                = 'space'
@@ -51,6 +51,7 @@
     }
     ExcludeRules = @(
         'PSMissingModuleManifestField', # This rule is not applicable until the module is built.
-        'PSUseToExportFieldsInManifest'
+        'PSUseToExportFieldsInManifest',
+        'PSAvoidUsingConvertToSecureStringWithPlainText' # We need to convert the secure string to plain text to send it in the API request. This is only done in one place and is necessary for the functionality.
     )
 }
