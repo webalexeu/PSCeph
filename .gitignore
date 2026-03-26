@@ -16,3 +16,7 @@ outputs/*
 bin/
 obj/
 libs/
+
+# Local API validation tests (not for CI)
+tests/Local/
+!tests/Local/.gitkeep

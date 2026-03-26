@@ -18,6 +18,10 @@ function Get-CephOSDTree {
         Get-CephOSDTree | Where-Object { $_.Type -eq 'host' }
         Returns only host-level entries in the tree.
 
+    .EXAMPLE
+        Get-CephOSDTree | Where-Object { $_.Type -eq 'osd' -and $_.Status -eq 'up' }
+        Returns only OSDs that are up.
+
     .OUTPUTS
         PSCustomObject[] representing the OSD tree nodes.
     #>
@@ -28,58 +32,36 @@ function Get-CephOSDTree {
         [switch]$Raw
     )
 
-    $response = Invoke-CephApi -Endpoint '/api/osd/tree'
+    # Use /api/health/full which contains the OSD tree in osd_map.tree
+    $response = Invoke-CephApi -Endpoint '/api/health/full'
+
+    if (-not $response.osd_map.tree) {
+        Write-Warning 'OSD tree data not available in API response'
+        return
+    }
+
+    $treeData = $response.osd_map.tree
 
     if ($Raw) {
-        return $response
+        return $treeData
     }
 
-    $convertNode = {
-        param($Node, $ParentId = $null, $Depth = 0)
-
+    # Process each node in the tree
+    foreach ($node in $treeData.nodes) {
         [PSCustomObject]@{
             PSTypeName      = 'PSCeph.OSDTreeNode'
-            Id              = $Node.id
-            Name            = $Node.name
-            Type            = $Node.type
-            TypeId          = $Node.type_id
-            CrushWeight     = $Node.crush_weight
-            Depth           = $Depth
-            ParentId        = $ParentId
-            DeviceClass     = $Node.device_class
-            Status          = $Node.status
-            Exists          = $Node.exists
-            Reweight        = $Node.reweight
-            PrimaryAffinity = $Node.primary_affinity
-        }
-
-        if ($Node.children) {
-            foreach ($child in $Node.children) {
-                & $convertNode -Node $child -ParentId $Node.id -Depth ($Depth + 1)
-            }
-        }
-    }
-
-    if ($response.nodes) {
-        foreach ($rootNode in ($response.nodes | Where-Object { $_.type -eq 'root' })) {
-            & $convertNode -Node $rootNode
-        }
-    }
-    elseif ($response) {
-        foreach ($node in $response) {
-            [PSCustomObject]@{
-                PSTypeName  = 'PSCeph.OSDTreeNode'
-                Id          = $node.id
-                Name        = $node.name
-                Type        = $node.type
-                TypeId      = $node.type_id
-                CrushWeight = $node.crush_weight
-                Status      = $node.status
-                DeviceClass = $node.device_class
-                Exists      = $node.exists
-                Reweight    = $node.reweight
-                Children    = $node.children
-            }
+            Id              = $node.id
+            Name            = $node.name
+            Type            = $node.type
+            TypeId          = $node.type_id
+            CrushWeight     = $node.crush_weight
+            DeviceClass     = $node.device_class
+            Status          = $node.status
+            Exists          = $node.exists
+            Reweight        = $node.reweight
+            PrimaryAffinity = $node.primary_affinity
+            Depth           = $node.depth
+            Children        = $node.children
         }
     }
 }

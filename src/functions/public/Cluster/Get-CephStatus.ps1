@@ -28,15 +28,28 @@ function Get-CephStatus {
         [switch]$Raw
     )
 
-    $response = Invoke-CephApi -Endpoint '/api/cluster'
+    $response = Invoke-CephApi -Endpoint '/api/health/full'
 
     if ($Raw) {
         return $response
     }
 
+    # Extract FSID from mon_status.monmap.fsid
+    $fsid = $response.mon_status.monmap.fsid
+
+    # Extract health status
+    $healthStatus = $response.health.status
+
     [PSCustomObject]@{
-        PSTypeName = 'PSCeph.ClusterStatus'
-        FSID       = $response.fsid
-        Status     = $response.status
+        PSTypeName   = 'PSCeph.ClusterStatus'
+        FSID         = $fsid
+        Health       = $healthStatus
+        MonitorCount = $response.mon_status.monmap.mons.Count
+        OSDCount     = $response.osd_map.osds.Count
+        OSDs_Up      = ($response.osd_map.osds | Where-Object { $_.up -eq 1 }).Count
+        OSDs_In      = ($response.osd_map.osds | Where-Object { $_.in -eq 1 }).Count
+        PoolCount    = $response.pools.Count
+        PGs_Total    = $response.pg_info.statuses.PSObject.Properties.Value | Measure-Object -Sum | Select-Object -ExpandProperty Sum
+        MgrActive    = $response.mgr_map.active_name
     }
 }

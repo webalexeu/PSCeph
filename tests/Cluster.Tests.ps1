@@ -79,8 +79,34 @@ Describe 'Get-CephStatus' {
     BeforeAll {
         Mock Invoke-CephApi {
             @{
-                fsid   = 'abc-123-def-456'
-                status = 'HEALTH_OK'
+                health     = @{ status = 'HEALTH_OK' }
+                mon_status = @{
+                    monmap = @{
+                        fsid = 'abc-123-def-456'
+                        mons = @(
+                            @{ name = 'mon1' }
+                            @{ name = 'mon2' }
+                            @{ name = 'mon3' }
+                        )
+                    }
+                }
+                osd_map    = @{
+                    osds = @(
+                        @{ osd = 0; up = 1; in = 1 }
+                        @{ osd = 1; up = 1; in = 1 }
+                        @{ osd = 2; up = 1; in = 1 }
+                    )
+                }
+                pools      = @(
+                    @{ pool_name = 'pool1' }
+                    @{ pool_name = 'pool2' }
+                )
+                pg_info    = @{
+                    statuses = [PSCustomObject]@{
+                        'active+clean' = 100
+                    }
+                }
+                mgr_map    = @{ active_name = 'mgr1' }
             }
         } -ModuleName PSCeph
     }
@@ -94,6 +120,23 @@ Describe 'Get-CephStatus' {
     It 'Should have PSTypeName PSCeph.ClusterStatus' {
         $result = Get-CephStatus
         $result.PSObject.TypeNames | Should -Contain 'PSCeph.ClusterStatus'
+    }
+
+    It 'Should include Health status' {
+        $result = Get-CephStatus
+        $result.Health | Should -Be 'HEALTH_OK'
+    }
+
+    It 'Should include OSD counts' {
+        $result = Get-CephStatus
+        $result.OSDCount | Should -Be 3
+        $result.OSDs_Up | Should -Be 3
+        $result.OSDs_In | Should -Be 3
+    }
+
+    It 'Should include monitor count' {
+        $result = Get-CephStatus
+        $result.MonitorCount | Should -Be 3
     }
 }
 

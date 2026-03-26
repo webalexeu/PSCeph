@@ -19,11 +19,18 @@ function Invoke-CephApi {
     .PARAMETER ContentType
         Content type for the request. Defaults to 'application/json'.
 
+    .PARAMETER ApiVersion
+        API version to use. If not specified, version is auto-detected based on endpoint.
+        Valid values: '0.1', '1.0', '2.0'
+
     .EXAMPLE
         Invoke-CephApi -Endpoint '/api/health/full'
 
     .EXAMPLE
         Invoke-CephApi -Endpoint '/api/pool' -Method POST -Body @{ pool = 'mypool'; pg_num = 128 }
+
+    .EXAMPLE
+        Invoke-CephApi -Endpoint '/api/cluster' -ApiVersion '0.1'
     #>
     [CmdletBinding()]
     param(
@@ -38,7 +45,11 @@ function Invoke-CephApi {
         [object]$Body,
 
         [Parameter()]
-        [string]$ContentType = 'application/json'
+        [string]$ContentType = 'application/json',
+
+        [Parameter()]
+        [ValidateSet('0.1', '1.0', '2.0')]
+        [string]$ApiVersion
     )
 
     if (-not $script:CephSession) {
@@ -59,13 +70,23 @@ function Invoke-CephApi {
                     Accept        = 'application/vnd.ceph.api.v1.0+json'
                 }
                 ContentType = 'application/json'
+                Body        = '{}'
             }
             if ($session.SkipCertificateCheck -and $PSVersionTable.PSVersion.Major -ge 6) {
                 $refreshParams['SkipCertificateCheck'] = $true
             }
             $refreshResponse = Invoke-RestMethod @refreshParams
             $session.Token = $refreshResponse.token
-            $session.TokenExpiry = (Get-Date).AddHours(1)
+            # Calculate token expiry from response or use default
+            if ($refreshResponse.token_expiry) {
+                $session.TokenExpiry = [DateTimeOffset]::FromUnixTimeSeconds($refreshResponse.token_expiry).LocalDateTime
+            }
+            elseif ($refreshResponse.ttl) {
+                $session.TokenExpiry = (Get-Date).AddSeconds($refreshResponse.ttl)
+            }
+            else {
+                $session.TokenExpiry = (Get-Date).AddHours(8)
+            }
             Write-Verbose 'Token refreshed successfully'
         }
         catch {
@@ -76,19 +97,30 @@ function Invoke-CephApi {
     $uri = "$($session.BaseUri)$Endpoint"
     Write-Verbose "Invoking $Method $uri"
 
-    # Determine API version based on endpoint (v2.0 endpoints)
-    $v2Endpoints = @('/api/block/', '/api/nvmeof/', '/api/smb/', '/api/rgw/')
-    $apiVersion = '1.0'
-    foreach ($v2Ep in $v2Endpoints) {
-        if ($Endpoint.StartsWith($v2Ep)) {
-            $apiVersion = '2.0'
-            break
+    # Determine API version - use explicit parameter if provided, otherwise auto-detect
+    $effectiveVersion = if ($ApiVersion) {
+        $ApiVersion
+    }
+    else {
+        # Auto-detect API version based on endpoint patterns
+        # v0.1: /api/cluster (cluster installation status)
+        # v2.0: /api/block/* (RBD), /api/crush_rule
+        # v1.0: Default for all other endpoints (including /api/nvmeof/*, /api/smb/*, etc.)
+        if ($Endpoint -eq '/api/cluster') {
+            '0.1'
+        }
+        elseif ($Endpoint.StartsWith('/api/block/') -or $Endpoint -eq '/api/crush_rule') {
+            '2.0'
+        }
+        else {
+            '1.0'
         }
     }
+    Write-Verbose "Using API version: $effectiveVersion"
 
     $headers = @{
         Authorization = "Bearer $($session.Token)"
-        Accept        = "application/vnd.ceph.api.v$apiVersion+json"
+        Accept        = "application/vnd.ceph.api.v$effectiveVersion+json"
     }
 
     $params = @{
@@ -123,10 +155,18 @@ function Invoke-CephApi {
         if ($_.Exception.Response) {
             $statusCode = [int]$_.Exception.Response.StatusCode
 
+            # Try to extract error details from response body
             try {
-                $reader = [System.IO.StreamReader]::new($_.Exception.Response.GetResponseStream())
-                $responseBody = $reader.ReadToEnd()
-                $reader.Close()
+                # PowerShell Core uses ErrorDetails, PS 5.1 uses GetResponseStream
+                $responseBody = $null
+                if ($_.ErrorDetails.Message) {
+                    $responseBody = $_.ErrorDetails.Message
+                }
+                elseif ($_.Exception.Response.GetResponseStream) {
+                    $reader = [System.IO.StreamReader]::new($_.Exception.Response.GetResponseStream())
+                    $responseBody = $reader.ReadToEnd()
+                    $reader.Close()
+                }
 
                 if ($responseBody) {
                     $errorDetail = $responseBody | ConvertFrom-Json -ErrorAction SilentlyContinue
