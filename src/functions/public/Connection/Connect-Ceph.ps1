@@ -109,13 +109,27 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
         throw 'Authentication succeeded but no token was returned.'
     }
 
+    # Calculate token expiry from response or use default
+    $tokenExpiry = if ($response.token_expiry) {
+        # API returns expiry as Unix timestamp
+        [DateTimeOffset]::FromUnixTimeSeconds($response.token_expiry).LocalDateTime
+    }
+    elseif ($response.ttl) {
+        # API returns TTL in seconds
+        (Get-Date).AddSeconds($response.ttl)
+    }
+    else {
+        # Default fallback (Ceph Dashboard default is typically 8 hours)
+        (Get-Date).AddHours(8)
+    }
+
     $script:CephSession = [PSCustomObject]@{
         PSTypeName           = 'PSCeph.Connection'
         Server               = $Server
         Port                 = $Port
         BaseUri              = $baseUri
         Token                = $response.token
-        TokenExpiry          = (Get-Date).AddHours(1)
+        TokenExpiry          = $tokenExpiry
         Username             = $Credential.UserName
         SkipCertificateCheck = $SkipCertificateCheck.IsPresent
         ConnectedAt          = Get-Date

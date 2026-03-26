@@ -122,12 +122,17 @@ Describe 'Get-CephOSDTree' {
     BeforeAll {
         Mock Invoke-CephApi {
             @{
-                nodes = @(
-                    @{ id = -1; name = 'default'; type = 'root'; children = @(-2) }
-                    @{ id = -2; name = 'ceph-node1'; type = 'host'; children = @(0, 1) }
-                    @{ id = 0; name = 'osd.0'; type = 'osd'; status = 'up'; device_class = 'ssd' }
-                    @{ id = 1; name = 'osd.1'; type = 'osd'; status = 'up'; device_class = 'ssd' }
-                )
+                osd_map = @{
+                    tree = @{
+                        nodes = @(
+                            @{ id = -1; name = 'default'; type = 'root'; type_id = 11; children = @(-2) }
+                            @{ id = -2; name = 'ceph-node1'; type = 'host'; type_id = 1; children = @(0, 1) }
+                            @{ id = 0; name = 'osd.0'; type = 'osd'; type_id = 0; status = 'up'; device_class = 'ssd'; crush_weight = 0.01; exists = 1; reweight = 1.0; primary_affinity = 1.0 }
+                            @{ id = 1; name = 'osd.1'; type = 'osd'; type_id = 0; status = 'up'; device_class = 'ssd'; crush_weight = 0.01; exists = 1; reweight = 1.0; primary_affinity = 1.0 }
+                        )
+                        stray = @()
+                    }
+                }
             }
         } -ModuleName PSCeph
     }
@@ -140,6 +145,20 @@ Describe 'Get-CephOSDTree' {
     It 'Should have PSTypeName PSCeph.OSDTreeNode' {
         $result = Get-CephOSDTree
         $result[0].PSObject.TypeNames | Should -Contain 'PSCeph.OSDTreeNode'
+    }
+
+    It 'Should include root node' {
+        $result = Get-CephOSDTree
+        $root = $result | Where-Object { $_.Type -eq 'root' }
+        $root | Should -Not -BeNullOrEmpty
+        $root.Name | Should -Be 'default'
+    }
+
+    It 'Should include OSD nodes with status' {
+        $result = Get-CephOSDTree
+        $osds = $result | Where-Object { $_.Type -eq 'osd' }
+        $osds.Count | Should -Be 2
+        $osds[0].Status | Should -Be 'up'
     }
 }
 
