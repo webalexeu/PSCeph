@@ -23,6 +23,9 @@ function Get-CephNVMeoFGateway {
 
     .OUTPUTS
         PSCustomObject[] representing NVMe-oF gateways.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/NVMeoF/Get-CephNVMeoFGateway/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

@@ -31,6 +31,9 @@ function Connect-Ceph {
 
     .OUTPUTS
         PSCustomObject representing the connection information.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Connection/Connect-Ceph/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject])]

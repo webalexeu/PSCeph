@@ -40,6 +40,9 @@ function Get-CephRBDImage {
 
     .OUTPUTS
         PSCustomObject[] representing RBD images.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/RBD/Get-CephRBDImage/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

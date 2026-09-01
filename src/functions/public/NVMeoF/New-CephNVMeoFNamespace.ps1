@@ -38,6 +38,9 @@ function New-CephNVMeoFNamespace {
 
     .OUTPUTS
         PSCustomObject representing the created namespace.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/NVMeoF/New-CephNVMeoFNamespace/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([PSCustomObject])]

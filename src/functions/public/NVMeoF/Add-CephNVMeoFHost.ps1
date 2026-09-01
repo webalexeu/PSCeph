@@ -24,6 +24,9 @@ function Add-CephNVMeoFHost {
 
     .OUTPUTS
         PSCustomObject representing the added host mapping.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/NVMeoF/Add-CephNVMeoFHost/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([PSCustomObject])]

@@ -27,6 +27,9 @@ function Get-CephHostDevice {
 
     .OUTPUTS
         PSCustomObject[] representing host devices.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Cluster/Get-CephHostDevice/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

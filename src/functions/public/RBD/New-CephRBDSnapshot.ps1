@@ -31,6 +31,9 @@ function New-CephRBDSnapshot {
 
     .OUTPUTS
         PSCustomObject representing the created snapshot.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/RBD/New-CephRBDSnapshot/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([PSCustomObject])]

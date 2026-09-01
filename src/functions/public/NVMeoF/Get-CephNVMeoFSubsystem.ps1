@@ -23,6 +23,9 @@ function Get-CephNVMeoFSubsystem {
 
     .OUTPUTS
         PSCustomObject[] representing NVMe-oF subsystems.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/NVMeoF/Get-CephNVMeoFSubsystem/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

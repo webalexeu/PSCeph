@@ -26,6 +26,9 @@ function Remove-CephNVMeoFNamespace {
 
     .OUTPUTS
         None
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/NVMeoF/Remove-CephNVMeoFNamespace/
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param(

@@ -23,6 +23,9 @@ function Get-CephNVMeoFHost {
 
     .OUTPUTS
         PSCustomObject[] representing allowed hosts.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/NVMeoF/Get-CephNVMeoFHost/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

@@ -39,6 +39,9 @@ function Set-CephOSD {
 
     .OUTPUTS
         PSCustomObject representing the modified OSD.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/OSD/Set-CephOSD/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([PSCustomObject])]

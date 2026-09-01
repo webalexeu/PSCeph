@@ -27,6 +27,9 @@ function Join-CephSMBActiveDirectory {
 
     .OUTPUTS
         PSCustomObject representing the joined cluster.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/SMB/Join-CephSMBActiveDirectory/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([PSCustomObject])]

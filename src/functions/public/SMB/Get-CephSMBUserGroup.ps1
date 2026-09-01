@@ -30,6 +30,9 @@ function Get-CephSMBUserGroup {
 
     .OUTPUTS
         PSCustomObject[] representing SMB users and groups.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/SMB/Get-CephSMBUserGroup/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

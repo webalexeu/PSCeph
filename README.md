@@ -1,6 +1,6 @@
 # PSCeph
 
-A PowerShell module for managing Ceph clusters through the Ceph Dashboard REST API.
+A PowerShell module for managing Ceph cluster(s) through the Ceph Dashboard REST API.
 
 ## Features
 

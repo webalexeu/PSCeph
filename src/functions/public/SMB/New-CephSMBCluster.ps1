@@ -38,6 +38,9 @@ function New-CephSMBCluster {
 
     .OUTPUTS
         PSCustomObject representing the created SMB cluster.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/SMB/New-CephSMBCluster/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([PSCustomObject])]

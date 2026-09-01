@@ -27,6 +27,9 @@ function Get-CephMonitor {
 
     .OUTPUTS
         PSCustomObject[] representing monitors.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Monitor/Get-CephMonitor/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

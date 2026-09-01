@@ -45,6 +45,9 @@ function Set-CephPool {
 
     .OUTPUTS
         PSCustomObject representing the modified pool.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Pool/Set-CephPool/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([PSCustomObject])]

@@ -23,6 +23,9 @@ function Get-CephSMBCluster {
 
     .OUTPUTS
         PSCustomObject[] representing SMB clusters.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/SMB/Get-CephSMBCluster/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

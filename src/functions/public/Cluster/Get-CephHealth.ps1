@@ -23,6 +23,9 @@ function Get-CephHealth {
 
     .OUTPUTS
         PSCustomObject representing the cluster health status.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Cluster/Get-CephHealth/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject])]

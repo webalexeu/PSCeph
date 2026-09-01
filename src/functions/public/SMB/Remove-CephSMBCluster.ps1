@@ -22,6 +22,9 @@ function Remove-CephSMBCluster {
 
     .OUTPUTS
         None
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/SMB/Remove-CephSMBCluster/
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param(
