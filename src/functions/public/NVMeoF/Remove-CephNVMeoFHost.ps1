@@ -25,6 +25,9 @@ function Remove-CephNVMeoFHost {
 
     .OUTPUTS
         None
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/NVMeoF/Remove-CephNVMeoFHost/
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
     param(

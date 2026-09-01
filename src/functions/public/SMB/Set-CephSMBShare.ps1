@@ -32,6 +32,9 @@ function Set-CephSMBShare {
 
     .OUTPUTS
         PSCustomObject representing the modified share.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/SMB/Set-CephSMBShare/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([PSCustomObject])]

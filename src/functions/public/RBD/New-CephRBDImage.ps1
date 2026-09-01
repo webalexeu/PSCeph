@@ -44,6 +44,9 @@ function New-CephRBDImage {
 
     .OUTPUTS
         PSCustomObject representing the created image.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/RBD/New-CephRBDImage/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([PSCustomObject])]

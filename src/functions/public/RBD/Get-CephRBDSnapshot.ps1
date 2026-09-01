@@ -36,6 +36,9 @@ function Get-CephRBDSnapshot {
 
     .OUTPUTS
         PSCustomObject[] representing snapshots.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/RBD/Get-CephRBDSnapshot/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

@@ -17,6 +17,9 @@ function Get-CephConnection {
 
     .OUTPUTS
         PSCustomObject representing the connection information, or $null if not connected.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Connection/Get-CephConnection/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject])]

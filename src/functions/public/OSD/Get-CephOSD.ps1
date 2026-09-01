@@ -27,6 +27,9 @@ function Get-CephOSD {
 
     .OUTPUTS
         PSCustomObject[] representing OSDs.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/OSD/Get-CephOSD/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

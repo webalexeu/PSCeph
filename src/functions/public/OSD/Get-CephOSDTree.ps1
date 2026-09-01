@@ -24,6 +24,9 @@ function Get-CephOSDTree {
 
     .OUTPUTS
         PSCustomObject[] representing the OSD tree nodes.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/OSD/Get-CephOSDTree/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

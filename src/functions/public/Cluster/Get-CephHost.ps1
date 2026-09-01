@@ -27,6 +27,9 @@ function Get-CephHost {
 
     .OUTPUTS
         PSCustomObject[] representing cluster hosts.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Cluster/Get-CephHost/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

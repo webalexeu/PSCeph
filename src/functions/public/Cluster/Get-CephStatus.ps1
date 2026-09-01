@@ -20,6 +20,9 @@ function Get-CephStatus {
 
     .OUTPUTS
         PSCustomObject representing the overall cluster status.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Cluster/Get-CephStatus/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject])]

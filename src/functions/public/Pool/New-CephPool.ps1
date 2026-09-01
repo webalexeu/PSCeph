@@ -51,6 +51,9 @@ function New-CephPool {
 
     .OUTPUTS
         PSCustomObject representing the created pool.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Pool/New-CephPool/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([PSCustomObject])]

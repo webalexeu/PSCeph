@@ -27,6 +27,9 @@ function Get-CephFS {
 
     .OUTPUTS
         PSCustomObject[] representing CephFS filesystems.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/CephFS/Get-CephFS/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

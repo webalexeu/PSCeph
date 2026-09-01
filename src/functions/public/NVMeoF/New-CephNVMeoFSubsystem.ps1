@@ -32,6 +32,9 @@ function New-CephNVMeoFSubsystem {
 
     .OUTPUTS
         PSCustomObject representing the created subsystem.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/NVMeoF/New-CephNVMeoFSubsystem/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([PSCustomObject])]

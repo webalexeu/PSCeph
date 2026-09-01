@@ -30,6 +30,9 @@ function Get-CephFSDirectory {
 
     .OUTPUTS
         PSCustomObject[] representing directories.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/CephFS/Get-CephFSDirectory/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

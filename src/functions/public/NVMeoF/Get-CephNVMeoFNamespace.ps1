@@ -26,6 +26,9 @@ function Get-CephNVMeoFNamespace {
 
     .OUTPUTS
         PSCustomObject[] representing NVMe-oF namespaces.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/NVMeoF/Get-CephNVMeoFNamespace/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

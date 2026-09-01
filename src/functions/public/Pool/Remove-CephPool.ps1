@@ -27,6 +27,9 @@ function Remove-CephPool {
 
     .OUTPUTS
         None
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Pool/Remove-CephPool/
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param(

@@ -30,6 +30,9 @@ function Get-CephSMBShare {
 
     .OUTPUTS
         PSCustomObject[] representing SMB shares.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/SMB/Get-CephSMBShare/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

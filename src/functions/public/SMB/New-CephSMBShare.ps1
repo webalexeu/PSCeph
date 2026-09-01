@@ -41,6 +41,9 @@ function New-CephSMBShare {
 
     .OUTPUTS
         PSCustomObject representing the created share.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/SMB/New-CephSMBShare/
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([PSCustomObject])]

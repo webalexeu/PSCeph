@@ -27,6 +27,9 @@ function Get-CephDashboardUser {
 
     .OUTPUTS
         PSCustomObject[] representing Dashboard users.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Auth/Get-CephDashboardUser/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

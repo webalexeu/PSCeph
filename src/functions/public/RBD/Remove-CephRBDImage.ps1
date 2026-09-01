@@ -29,6 +29,9 @@ function Remove-CephRBDImage {
 
     .OUTPUTS
         None
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/RBD/Remove-CephRBDImage/
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param(

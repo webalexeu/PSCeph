@@ -27,6 +27,9 @@ function Get-CephHostDaemon {
 
     .OUTPUTS
         PSCustomObject[] representing host daemons.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Cluster/Get-CephHostDaemon/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

@@ -27,6 +27,9 @@ function Get-CephConfig {
 
     .OUTPUTS
         PSCustomObject[] representing configuration options.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Cluster/Get-CephConfig/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

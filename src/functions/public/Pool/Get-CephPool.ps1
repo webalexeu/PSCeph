@@ -30,6 +30,9 @@ function Get-CephPool {
 
     .OUTPUTS
         PSCustomObject[] representing storage pools.
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Pool/Get-CephPool/
     #>
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

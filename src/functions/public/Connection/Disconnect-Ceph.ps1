@@ -14,6 +14,9 @@ function Disconnect-Ceph {
 
     .OUTPUTS
         None
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/Connection/Disconnect-Ceph/
     #>
     [CmdletBinding()]
     param()

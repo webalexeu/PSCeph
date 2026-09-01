@@ -26,6 +26,9 @@ function Remove-CephSMBShare {
 
     .OUTPUTS
         None
+
+    .LINK
+        https://psmodule.io/PSCeph/Functions/SMB/Remove-CephSMBShare/
     #>
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param(
