@@ -39,6 +39,15 @@ Connect-Ceph -Server 'ceph-mgr.local' -Credential (Get-Credential)
 
 # Connect with self-signed certificate
 Connect-Ceph -Server '192.168.1.100' -Port 8443 -Credential $cred -SkipCertificateCheck
+
+# Auto-detects whether the Dashboard uses local auth or OIDC SSO. If it's
+# OIDC (requires 'ceph dashboard sso enable oauth2'), supply the issuer/client
+# ID registered with your identity provider - works against any provider
+# that supports the RFC 8628 device code grant (authentik, Keycloak, Okta, etc).
+Connect-Ceph -Server 'ceph-mgr.local' -OidcIssuerUrl 'https://auth.example.com/application/o/ceph/' -OidcClientId 'ceph-dashboard'
+
+# Force the OIDC flow without probing first (e.g. if the probe itself is blocked)
+Connect-Ceph -Server 'ceph-mgr.local' -Sso -OidcIssuerUrl 'https://auth.example.com/application/o/ceph/' -OidcClientId 'ceph-dashboard'
 ```
 
 ### Check Cluster Health

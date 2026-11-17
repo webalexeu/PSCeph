@@ -12,7 +12,10 @@ PSCeph is a PowerShell module for managing Ceph clusters through the Ceph Dashbo
 src/
 ├── functions/
 │   ├── private/
-│   │   └── Invoke-CephApi.ps1           # Core API helper
+│   │   ├── Invoke-CephApi.ps1           # Core API helper
+│   │   ├── Resolve-CephAuthMethod.ps1   # Auto-detects Local vs OAuth2 vs SAML2
+│   │   ├── Invoke-CephOidcDeviceCodeFlow.ps1  # RFC 8628 device code grant
+│   │   └── ConvertFrom-JwtPayload.ps1   # Decode JWT claims (no signature check)
 │   └── public/
 │       ├── Connection/
 │       │   ├── Connect-Ceph.ps1
@@ -86,6 +89,62 @@ src/
 - **Response**: `{"token": "...", "permissions": {...}}`
 - **Token Expiry**: 1 hour (refresh at 55 minutes)
 - **Refresh Endpoint**: `POST /api/auth/refresh`
+
+### OIDC Authentication (Device Code Grant) and Auth Method Auto-Detection
+
+`Connect-Ceph` supports two authentication methods - local (username/password)
+and the OIDC device code grant (RFC 8628) for clusters with
+`ceph dashboard sso enable oauth2` configured - and normally picks the right
+one itself instead of requiring the caller to specify it.
+
+**Auto-detection:** `Resolve-CephAuthMethod.ps1` calls the Dashboard's own
+*unauthenticated* `POST /api/auth/check` (no token supplied) and inspects the
+returned `login_url`. Ceph's backend sets this to a protocol-specific,
+hardcoded value (see `services/auth/{auth,oauth2,saml2}.py`'s `LOGIN_URL`
+class attributes):
+- `'#/login'` -> Local auth
+- `'auth/oauth2/login'` -> OAuth2 SSO -> run the device code flow
+- `'auth/saml2/...'` -> SAML2 SSO -> throw (browser-only, unsupported here)
+
+`Connect-Ceph` only skips this probe when the caller is explicit about which
+method to use: passing `-Credential` forces local auth, and `-Sso` forces the
+OIDC flow. Passing both is a parameter error. The common case -
+`Connect-Ceph -Server x` with nothing else - always goes through the probe.
+
+**OIDC specifics:** nothing in `Invoke-CephOidcDeviceCodeFlow.ps1` is
+provider-specific - it discovers `device_authorization_endpoint` and
+`token_endpoint` via `{IssuerUrl}/.well-known/openid-configuration`, so it
+works against authentik, Keycloak, Okta, Entra ID, or any other RFC
+8628-compliant provider. Ceph has no API to expose the issuer URL/client ID
+it expects, though, so `-OidcIssuerUrl`/`-OidcClientId` must still be supplied
+by the caller whenever the OIDC path is taken (auto-detected or forced via
+`-Sso`) - `Connect-Ceph` throws a clear error naming both if they're missing.
+
+**Important: the Ceph Dashboard does not verify JWT signatures in OAuth2 SSO
+mode.** Its backend (`services/auth/oauth2.py`) reads a JWT from either the
+`token` cookie or an `X-Access-Token` header and trusts the claims (`sub`,
+`jti`, roles) without checking a signature, issuer, or JWKS. This is Ceph's
+own behavior, not a weakness introduced by this module - PSCeph just needs a
+real JWT from the configured IdP and sends it in `X-Access-Token`.
+
+Flow once the OIDC path is taken:
+1. `Invoke-CephOidcDeviceCodeFlow` requests a device code, prints the
+   verification URL/code, then polls the token endpoint (honoring
+   `authorization_pending`/`slow_down` per RFC 8628) until the user approves.
+2. `Connect-Ceph` picks either the `access_token` or `id_token` (via
+   `-OidcTokenClaim`, default `AccessToken` - whichever one carries the role
+   claims your `ceph dashboard sso enable oauth2 --roles_path` expects),
+   decodes it with `ConvertFrom-JwtPayload` just to show the authenticated
+   identity (`preferred_username`/`sub`), and stores it as `$script:CephSession.Token`.
+3. A connectivity check (`GET /api/health/minimal`) confirms the Dashboard
+   actually accepts the token before `Connect-Ceph` returns successfully.
+4. `Invoke-CephApi` sends `X-Access-Token: <token>` instead of
+   `Authorization: Bearer <token>` when `$session.AuthMethod -eq 'OIDC'`, and
+   refreshes via the IdP's `token_endpoint` (`grant_type=refresh_token`)
+   instead of Ceph's own `/api/auth/refresh`. If no refresh token was issued
+   (e.g. provider didn't grant `offline_access`), it warns to reconnect.
+5. `Disconnect-Ceph` skips the `/api/auth/logout` call for OIDC sessions -
+   there's no Dashboard-side session to invalidate, only the local token.
 
 ### API Versioning
 

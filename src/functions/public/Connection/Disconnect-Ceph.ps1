@@ -29,21 +29,24 @@ function Disconnect-Ceph {
     $server = $script:CephSession.Server
     $username = $script:CephSession.Username
 
-    # Attempt to logout via API (invalidate token server-side)
-    try {
-        $logoutParams = @{
-            Uri         = "$($script:CephSession.BaseUri)/api/auth/logout"
-            Method      = 'POST'
-            Headers     = @{ Authorization = "Bearer $($script:CephSession.Token)" }
-            ContentType = 'application/json'
+    # Attempt to logout via API (invalidate token server-side). Only meaningful for
+    # local auth - an OIDC token has no server-side session on the Dashboard to revoke.
+    if ($script:CephSession.AuthMethod -ne 'OIDC') {
+        try {
+            $logoutParams = @{
+                Uri         = "$($script:CephSession.BaseUri)/api/auth/logout"
+                Method      = 'POST'
+                Headers     = @{ Authorization = "Bearer $($script:CephSession.Token)" }
+                ContentType = 'application/json'
+            }
+            if ($script:CephSession.SkipCertificateCheck) {
+                $logoutParams['SkipCertificateCheck'] = $true
+            }
+            $null = Invoke-RestMethod @logoutParams -ErrorAction SilentlyContinue
         }
-        if ($script:CephSession.SkipCertificateCheck) {
-            $logoutParams['SkipCertificateCheck'] = $true
+        catch {
+            Write-Verbose "Logout API call failed: $_"
         }
-        $null = Invoke-RestMethod @logoutParams -ErrorAction SilentlyContinue
-    }
-    catch {
-        Write-Verbose "Logout API call failed: $_"
     }
 
     $script:CephSession = $null
