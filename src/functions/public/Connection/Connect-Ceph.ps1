@@ -39,7 +39,7 @@ function Connect-Ceph {
 
     .PARAMETER OidcIssuerUrl
         The OIDC issuer base URL of your identity provider (e.g. an authentik
-        application's issuer, such as https://auth.example.com/application/o/ceph/).
+        application's issuer, such as `https://auth.example.com/application/o/ceph/`).
         Required when using OIDC - Ceph does not expose this over its API, so
         it must be supplied by the caller.
 
@@ -73,10 +73,11 @@ function Connect-Ceph {
         Skips auto-detection and connects using local username/password auth.
 
     .EXAMPLE
-        Connect-Ceph -Server 'ceph-mgr.local' -OidcIssuerUrl 'https://auth.example.com/application/o/ceph/' -OidcClientId 'ceph-dashboard'
+        Connect-Ceph -Server 'ceph-mgr.local' -OidcIssuerUrl $issuerUrl -OidcClientId 'ceph-dashboard'
         Auto-detects OIDC is configured (or pass -Sso to skip the probe) and
         runs the device code grant - prints a URL and code to approve in a
-        browser, on any device.
+        browser, on any device. $issuerUrl is your identity provider's issuer
+        URL, e.g. an authentik application's issuer.
 
     .OUTPUTS
         PSCustomObject representing the connection information.
