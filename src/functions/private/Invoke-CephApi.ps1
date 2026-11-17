@@ -60,37 +60,81 @@ function Invoke-CephApi {
 
     # Check if token needs refresh
     if ($session.TokenExpiry -and (Get-Date) -ge $session.TokenExpiry.AddMinutes(-5)) {
-        Write-Verbose 'Token expiring soon, attempting refresh...'
-        try {
-            $refreshParams = @{
-                Uri         = "$($session.BaseUri)/api/auth/refresh"
-                Method      = 'POST'
-                Headers     = @{
-                    Authorization = "Bearer $($session.Token)"
-                    Accept        = 'application/vnd.ceph.api.v1.0+json'
+        if ($session.AuthMethod -eq 'OIDC') {
+            if ($session.RefreshToken -and $session.TokenEndpoint) {
+                Write-Verbose 'OIDC token expiring soon, attempting refresh...'
+                try {
+                    $refreshBody = @{
+                        grant_type    = 'refresh_token'
+                        refresh_token = $session.RefreshToken
+                        client_id     = $session.OidcClientId
+                    }
+                    if ($session.OidcClientSecret) {
+                        $refreshBody['client_secret'] = [System.Net.NetworkCredential]::new('', $session.OidcClientSecret).Password
+                    }
+                    $refreshParams = @{
+                        Uri         = $session.TokenEndpoint
+                        Method      = 'POST'
+                        Body        = $refreshBody
+                        ContentType = 'application/x-www-form-urlencoded'
+                    }
+                    if ($session.SkipCertificateCheck -and $PSVersionTable.PSVersion.Major -ge 6) {
+                        $refreshParams['SkipCertificateCheck'] = $true
+                    }
+                    $tokenResponse = Invoke-RestMethod @refreshParams
+                    $session.Token = if ($session.OidcTokenClaim -eq 'IdToken') { $tokenResponse.id_token } else { $tokenResponse.access_token }
+                    if ($tokenResponse.refresh_token) {
+                        $session.RefreshToken = $tokenResponse.refresh_token
+                    }
+                    $session.TokenExpiry = if ($tokenResponse.expires_in) {
+                        (Get-Date).AddSeconds([int]$tokenResponse.expires_in)
+                    }
+                    else {
+                        (Get-Date).AddMinutes(5)
+                    }
+                    Write-Verbose 'OIDC token refreshed successfully'
                 }
-                ContentType = 'application/json'
-                Body        = '{}'
-            }
-            if ($session.SkipCertificateCheck -and $PSVersionTable.PSVersion.Major -ge 6) {
-                $refreshParams['SkipCertificateCheck'] = $true
-            }
-            $refreshResponse = Invoke-RestMethod @refreshParams
-            $session.Token = $refreshResponse.token
-            # Calculate token expiry from response or use default
-            if ($refreshResponse.token_expiry) {
-                $session.TokenExpiry = [DateTimeOffset]::FromUnixTimeSeconds($refreshResponse.token_expiry).LocalDateTime
-            }
-            elseif ($refreshResponse.ttl) {
-                $session.TokenExpiry = (Get-Date).AddSeconds($refreshResponse.ttl)
+                catch {
+                    Write-Warning "OIDC token refresh failed: $_. You may need to reconnect with Connect-Ceph."
+                }
             }
             else {
-                $session.TokenExpiry = (Get-Date).AddHours(8)
+                Write-Warning 'OIDC token is expiring and no refresh token is available. Reconnect with Connect-Ceph.'
             }
-            Write-Verbose 'Token refreshed successfully'
         }
-        catch {
-            Write-Warning "Token refresh failed: $_. You may need to reconnect."
+        else {
+            Write-Verbose 'Token expiring soon, attempting refresh...'
+            try {
+                $refreshParams = @{
+                    Uri         = "$($session.BaseUri)/api/auth/refresh"
+                    Method      = 'POST'
+                    Headers     = @{
+                        Authorization = "Bearer $($session.Token)"
+                        Accept        = 'application/vnd.ceph.api.v1.0+json'
+                    }
+                    ContentType = 'application/json'
+                    Body        = '{}'
+                }
+                if ($session.SkipCertificateCheck -and $PSVersionTable.PSVersion.Major -ge 6) {
+                    $refreshParams['SkipCertificateCheck'] = $true
+                }
+                $refreshResponse = Invoke-RestMethod @refreshParams
+                $session.Token = $refreshResponse.token
+                # Calculate token expiry from response or use default
+                if ($refreshResponse.token_expiry) {
+                    $session.TokenExpiry = [DateTimeOffset]::FromUnixTimeSeconds($refreshResponse.token_expiry).LocalDateTime
+                }
+                elseif ($refreshResponse.ttl) {
+                    $session.TokenExpiry = (Get-Date).AddSeconds($refreshResponse.ttl)
+                }
+                else {
+                    $session.TokenExpiry = (Get-Date).AddHours(8)
+                }
+                Write-Verbose 'Token refreshed successfully'
+            }
+            catch {
+                Write-Warning "Token refresh failed: $_. You may need to reconnect."
+            }
         }
     }
 
@@ -119,8 +163,13 @@ function Invoke-CephApi {
     Write-Verbose "Using API version: $effectiveVersion"
 
     $headers = @{
-        Authorization = "Bearer $($session.Token)"
-        Accept        = "application/vnd.ceph.api.v$effectiveVersion+json"
+        Accept = "application/vnd.ceph.api.v$effectiveVersion+json"
+    }
+    if ($session.AuthMethod -eq 'OIDC') {
+        $headers['X-Access-Token'] = $session.Token
+    }
+    else {
+        $headers['Authorization'] = "Bearer $($session.Token)"
     }
 
     $params = @{

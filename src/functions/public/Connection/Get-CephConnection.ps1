@@ -34,6 +34,7 @@ function Get-CephConnection {
         Server      = $script:CephSession.Server
         Port        = $script:CephSession.Port
         Username    = $script:CephSession.Username
+        AuthMethod  = $script:CephSession.AuthMethod
         ConnectedAt = $script:CephSession.ConnectedAt
         TokenExpiry = $script:CephSession.TokenExpiry
         Permissions = $script:CephSession.Permissions
